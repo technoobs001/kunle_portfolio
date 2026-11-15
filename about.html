@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>About · Kunle Itunu</title>
+  <meta name="description" content="Meet Kunle Itunu, a visual artist specializing in realism and abstract art.">
+  <link rel="preload" href="fonts/CormorantInfant-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/common.css">
+
+  <link rel="stylesheet" href="css/about.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="js/navigation.js"></script>
+</head>
+<body>
+
+  <!-- Fixed liquid-glass navigation (same component as the home page) -->
+  <header class="nav" id="top">
+    <a class="nav__logo" href="index.html" aria-label="Kunle Ituno — home">KUNLE ITUNU</a>
+ <nav class="nav__pill" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="is-active" aria-current="page">About</a>
+      <a href="#gallery">Archive</a>
+      <a href="contact.html">Contact Me</a>
+    </nav>
+    <button
+    class="nav__toggle"
+    type="button"
+    aria-label="Open navigation"
+    aria-expanded="false"
+    aria-controls="primary-navigation"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  </header>
+
+  <main class="about" id="about">
+
+    <!-- Intro: portrait slides in from the left, copy sits to its right -->
+    <div class="slide slide--left slide--portrait">
+      <img src="images/about/hero.png" width="669" height="823"
+           alt="Portrait of Kunle Itunu in a green and gold frame, with paintbrushes, oil paints and a white rose">
+    </div>
+
+    <p class="about__eyebrow">Meet The Artist</p>
+    <h1 class="about__title">I AM, <span>KUNLE ITUNU</span></h1>
+
+    <div class="about__text">
+      <p>A visual artist specializing in realism and abstract art. My work is driven by passion, creativity, and a genuine commitment to bringing ideas to life through art.</p>
+      <p>Over the years, I have had the opportunity to work with international clients, creating commissioned pieces and shipping paintings across borders, as well as collaborating with local businesses on murals and branding projects. I take pride not only in the quality of my work but also in building meaningful relationships with clients through clear communication, professionalism, and punctuality.</p>
+      <p>My artistic approach blends a timeless vintage influence with minimalist aesthetics, allowing each piece to make a statement while maintaining its own character. Ultimately, I believe art should be more than something we see; it should be something we connect with.</p>
+    </div>
+
+    <!-- Collage: left-side pieces slide in from the left, right-side pieces from the right -->
+    <div class="collage">
+      <div class="slide slide--right slide--stroke">
+        <img src="images/about/paint_stroke.png" width="273" height="618" alt="" aria-hidden="true">
+      </div>
+      <div class="slide slide--right slide--man-right">
+        <img src="images/about/right_image.png" width="1003" height="1675" alt="A man in a grey t-shirt and headphones, looking down at a tablet">
+      </div>
+      <div class="slide slide--left slide--butterfly">
+        <img src="images/about/butterfly.png" width="268" height="273" alt="" aria-hidden="true">
+      </div>
+      <div class="slide slide--left slide--easel">
+        <img src="images/about/drawing_board.png" width="793" height="1696" alt="" aria-hidden="true">
+      </div>
+      <div class="slide slide--left slide--man-left">
+        <img src="images/about/left_image.png" width="683" height="1395" alt="A man in a white t-shirt and headphones, drawing on a tablet">
+      </div>
+      <div class="wave">
+        <img src="images/about/paint_draw_wave.png" width="1440" height="806" alt="" aria-hidden="true">
+      </div>
+      <div class="slide slide--right slide--record">
+        <img src="images/about/record_sticker.png" width="652" height="586" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.slide');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>

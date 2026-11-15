@@ -1,0 +1,549 @@
+
+/* =========================================================================
+   KUNLE ITUNU ARCHIVE — ABOUT PAGE
+   =========================================================================
+   Global styles and navigation:
+   Loaded from common.css
+
+   Desktop:
+   1440 × 3460 reference artboard.
+   Entire composition scales proportionally.
+
+   Tablet / Mobile:
+   Intro stacks vertically.
+   Collage retains its original proportions and positioning.
+   ========================================================================= */
+
+
+/* =========================================================================
+   01. ABOUT PAGE COORDINATE SYSTEM
+   ========================================================================= */
+
+
+   body .nav .nav__logo {
+  color: var(--sage);
+}
+body .nav__pill a {
+        color: var(--text);
+  }
+
+  body .nav__pill a.is-active {
+        color: var(--active-nav-pill_text);
+  }
+
+.about {
+  /*
+    Keep the original artboard scaling.
+
+    This is intentionally scoped to .about so it does not
+    interfere with common.css.
+  */
+  --u: calc(min(100vw, 2400px) / 1440);
+
+  --ink-eyebrow: #424740;
+  --ink-body: #595956;
+
+  /* Slide animation */
+  --slide-dx: min(24vw, 420px);
+  --slide-time: 1.35s;
+  --slide-ease: cubic-bezier(.16, .84, .3, 1);
+
+  /* Coordinate origin */
+  --oy: 0;
+
+  position: relative;
+
+  width: 100%;
+  max-width: 2400px;
+  height: calc(3460 * var(--u));
+
+  margin-inline: auto;
+
+  overflow: clip;
+}
+
+
+/* =========================================================================
+   02. COLLAGE STRUCTURE
+   ========================================================================= */
+
+/* Desktop: collage elements position against .about */
+
+.collage {
+  display: contents;
+}
+
+/* Shared positioning */
+
+.slide,
+.wave {
+  position: absolute;
+
+  left: calc(var(--x) * var(--u));
+
+  top: calc(
+    (var(--y) - var(--oy)) * var(--u)
+  );
+
+  width: calc(var(--w) * var(--u));
+}
+
+/* Image sizing */
+
+.slide img,
+.wave img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+
+/* =========================================================================
+   03. INTRO PORTRAIT
+   ========================================================================= */
+
+.slide--portrait {
+  --x: 30;
+  --y: 115;
+  --w: 669;
+
+  z-index: 4;
+}
+
+
+/* =========================================================================
+   04. COLLAGE ELEMENTS
+   Original reference-artboard coordinates preserved.
+   ========================================================================= */
+
+/* Drawing board / easel */
+
+.slide--easel {
+  --x: 0;
+  --y: 1079;
+  --w: 793;
+
+  z-index: 1;
+}
+
+
+/* Left artist */
+
+.slide--man-left {
+  --x: 0;
+  --y: 1924;
+  --w: 683;
+
+  z-index: 2;
+}
+
+
+/* Paint stroke */
+
+.slide--stroke {
+  --x: 1167;
+  --y: 670;
+  --w: 273;
+
+  z-index: 2;
+}
+
+
+/* Right artist */
+
+.slide--man-right {
+  --x: 437;
+  --y: 1001;
+  --w: 1003;
+
+  z-index: 3;
+}
+
+
+/* Butterfly */
+
+.slide--butterfly {
+  --x: 503;
+  --y: 934;
+  --w: 268;
+
+  z-index: 4;
+}
+
+
+/* Paint wave */
+
+.wave {
+  --x: 0;
+  --y: 2654;
+  --w: 1440;
+
+  z-index: 5;
+}
+
+
+/* Vinyl record and newspaper */
+
+.slide--record {
+  --x: 680;
+  --y: 2506;
+  --w: 652;
+
+  z-index: 6;
+}
+
+
+/* =========================================================================
+   05. INTRODUCTION TEXT
+   ========================================================================= */
+
+/* Shared positioning */
+
+.about__eyebrow,
+.about__title,
+.about__text {
+  position: absolute;
+
+  left: calc(730 * var(--u));
+
+  z-index: 8;
+}
+
+
+/* Eyebrow */
+
+.about__eyebrow {
+  top: calc(226 * var(--u));
+
+  font-family: var(--font-sans);
+
+  font-size: calc(18 * var(--u));
+  font-weight: 300;
+
+  line-height: calc(24 * var(--u));
+  letter-spacing: .01em;
+
+  color: var(--ink-eyebrow);
+}
+
+
+/* Main heading */
+
+.about__title {
+  top: calc(279 * var(--u));
+  left: calc(729 * var(--u));
+
+  font-family: var(--font-serif);
+
+  font-weight: 500;
+  font-size: calc(48 * var(--u));
+
+  line-height: calc(60 * var(--u));
+  letter-spacing: 0;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  color: var(--ink);
+}
+
+
+/* Artist name */
+
+.about__title span {
+  color: var(--sage);
+}
+
+
+/* Biography */
+
+.about__text {
+  top: calc(369 * var(--u));
+
+  width: calc(640 * var(--u));
+
+  font-family: var(--font-sans);
+
+  font-size: calc(20 * var(--u));
+  font-weight: 300;
+
+  line-height: calc(24 * var(--u));
+
+  color: var(--ink-body);
+}
+
+
+/* Paragraph spacing */
+
+.about__text p {
+  margin: 0 0 calc(24 * var(--u));
+}
+
+.about__text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================================
+   06. SCROLL ANIMATIONS
+   ========================================================================= */
+
+/* Animation direction */
+
+.slide--left {
+  --from: -1;
+}
+
+.slide--right {
+  --from: 1;
+}
+
+
+/* Main slide animation */
+
+@keyframes slide-in {
+
+  from {
+    opacity: 0;
+
+    transform: translate3d(
+      calc(var(--from) * var(--slide-dx)),
+      0,
+      0
+    );
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate3d(0, 0, 0);
+  }
+
+}
+
+
+/* Hide images only when JavaScript is enabled */
+
+.js .slide img {
+  opacity: 0;
+}
+
+
+/* Reveal images when IntersectionObserver adds .is-in */
+
+.js .slide.is-in img {
+  animation:
+    slide-in
+    var(--slide-time)
+    var(--slide-ease)
+    var(--delay, 0s)
+    both;
+}
+
+
+/* Individual animation delays */
+
+.slide--portrait {
+  --delay: 0s;
+}
+
+.slide--stroke {
+  --delay: .12s;
+}
+
+.slide--man-right {
+  --delay: 0s;
+}
+
+.slide--butterfly {
+  --delay: .1s;
+}
+
+.slide--easel {
+  --delay: 0s;
+}
+
+.slide--man-left {
+  --delay: .1s;
+}
+
+.slide--record {
+  --delay: .15s;
+}
+
+
+/* =========================================================================
+   07. REDUCED MOTION
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .js .slide img {
+    opacity: 1;
+  }
+
+  .js .slide.is-in img {
+    animation: none;
+  }
+
+}
+
+
+/* =========================================================================
+   08. TABLET AND MOBILE
+   Breakpoint: 999px
+   ========================================================================= */
+
+@media (max-width: 999px) {
+
+  /* Main About layout */
+
+  .about {
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 92px 0 0;
+  }
+
+
+  /* Stack the introduction elements */
+
+  .slide--portrait,
+  .about__eyebrow,
+  .about__title,
+  .about__text {
+    position: static;
+  }
+
+
+  /* Portrait */
+
+  .slide--portrait {
+    width: min(94%, 600px);
+
+    margin: 0 auto;
+  }
+
+
+  /* Introduction alignment */
+
+  .about__eyebrow,
+  .about__title,
+  .about__text {
+    width: auto;
+
+    margin-inline: clamp(22px, 7vw, 64px);
+  }
+
+
+  /* Eyebrow */
+
+  .about__eyebrow {
+    margin-top: clamp(8px, 2vw, 24px);
+
+    font-size: clamp(14px, 2.2vw, 17px);
+
+    line-height: 1.4;
+  }
+
+
+  /* Heading */
+
+  .about__title {
+    margin-top: 10px;
+
+    font-size: clamp(32px, 9vw, 52px);
+
+    line-height: 1.12;
+
+    white-space: normal;
+  }
+
+
+  /* Biography */
+
+  .about__text {
+    margin-top: clamp(20px, 4vw, 32px);
+
+    max-width: 640px;
+
+    font-size: clamp(15px, 2.3vw, 18px);
+
+    line-height: 1.42;
+  }
+
+
+  .about__text p {
+    margin-bottom: 1.1em;
+  }
+
+  .about__text p:last-child {
+    margin-bottom: 0;
+  }
+
+
+  /* Collage */
+
+  .collage {
+    --oy: 640;
+
+    display: block;
+
+    position: relative;
+
+    width: 100%;
+
+    height: calc(
+      (3460 - 640) * var(--u)
+    );
+
+    margin-top: clamp(8px, 3vw, 32px);
+  }
+
+}
+
+
+/* =========================================================================
+   09. SMALL SCREEN ANIMATION
+   ========================================================================= */
+
+@media (max-width: 700px) {
+
+  .about {
+    --slide-dx: 30vw;
+    --slide-time: 1.1s;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+  .hero__picture {
+    height: calc(505 * var(--m));
+  }
+
+  .hero__img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+/* =========================================================================
+   10. SMALL PHONE
+   ========================================================================= */
+
+@media (max-width: 400px) {
+
+  .about {
+    padding-top: 82px;
+  }
+
+}

@@ -1,0 +1,291 @@
+
+.hero, .sec, .footer { position: relative; }  /* no z-index → no stacking context */
+.stage { position: absolute; inset: 0; }
+
+.it {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: auto;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  height: calc(1040 * var(--u));
+  z-index: 5;
+}
+.hero__img {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: calc(1026 * var(--u));
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.hero__strip {
+  position: absolute;
+  left: 0;
+  top: calc(1025 * var(--u));
+  width: 100%;
+  height: calc(15 * var(--u));
+  object-fit: fill;
+}
+
+.hero__welcome,
+.hero__title,
+.hero__lead { position: absolute; margin: 0; left: 0; right: 0; text-align: center; color: #fff; }
+
+.hero__welcome {
+  top: calc(209 * var(--u));
+  font-family: var(--font-sans);
+  font-weight: 200;
+  font-size: calc(40 * var(--u));
+  line-height: calc(48 * var(--u));
+  letter-spacing: .01em;
+}
+.hero__title {
+  top: calc(265 * var(--u));
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: calc(98 * var(--u));
+  line-height: calc(120 * var(--u));
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.hero__rule {
+  position: absolute;
+  left: calc(607 * var(--u));
+  top: calc(412 * var(--u));
+  width: calc(225 * var(--u));
+  height: max(2px, calc(3 * var(--u)));
+  background: var(--sage);
+}
+.hero__lead {
+  left: calc(250 * var(--u));
+  right: calc(250 * var(--u));
+  top: calc(833 * var(--u));
+  font-weight: 200;
+  font-size: calc(24 * var(--u));
+  line-height: calc(30 * var(--u));
+  color: rgba(255, 255, 255, .78);
+  font-family: var(--font-sans);
+
+}
+.hero__lead strong { font-weight: 400; color: #fff; }
+
+.hero__picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: calc(1026 * var(--u));
+}
+
+.hero__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+/* ---------- Section heights ---------- */
+.sec--red     { height: calc(1214 * var(--u)); }
+.sec--green   { height: calc(1226 * var(--u)); }
+.sec--wedding { height: calc(1712 * var(--u)); }
+.sec--notes   { height: calc(633  * var(--u)); z-index: 5; }
+.sec--tail    { height: calc(394  * var(--u)); }
+
+/* ---------- Item placement (x, y relative to its section; w = native px) ---------- */
+/* red */
+.it--wall   { --x: 0;    --y: -74;  --w: 574;  z-index: 4; }
+.it--sun    { --x: 1151; --y: -239; --w: 289;  z-index: 1; }
+.it--flower { --x: 0;    --y: -107; --w: 262;  z-index: 6; }
+.it--cloud  { --x: 0;    --y: 250;  --w: 1440; z-index: 2; }
+.it--frame1 { --x: 20;   --y: 160;  --w: 649;  z-index: 4; }
+.it--book   { --x: 0;    --y: 751;  --w: 368;  z-index: 4; }
+/* green */
+.it--rod    { --x: 0;    --y: 20;   --w: 82;   z-index: 3; }
+.it--frame2 { --x: 508;  --y: 158;  --w: 934;  z-index: 3; }
+.it--chain1, .it--chain2, .it--chain3, .it--chain4 {
+  --w: 511;
+  transform-origin: 0 0;
+  transform: rotate(var(--r, 0deg)) scale(var(--s, 1));
+}
+.it--flip { transform: rotate(var(--r, 0deg)) scale(var(--s, 1)) translateX(100%) scaleX(-1); }
+.it--chain1 { --x: 16.6; --y: -120.6; --r:-21.61deg     z-index: 1; }
+.it--chain2 { --x: 727.5; --y: 872.4;  --r: 10.9deg;   --s: .824; z-index: 2; }
+/* wedding */
+.it--butterfly { --x: 121; --y: 346;  --w: 634;  z-index: 3; }
+.it--frame3    { --x: 216; --y: 92;   --w: 1007; z-index: 5; }
+.it--arm1      { --x: 0;   --y: -363; --w: 543;  z-index: 6; }
+.it--arm2      { --x: 913; --y: 984;  --w: 527;  z-index: 6; }
+.it--chain3    { --x: 927; --y: 1326.3; --r: -27.81deg; --s: .824; z-index: 7; }
+/* notes */
+.notes__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.it--tape   { --w: 629; --y: 128.8; z-index: 6; }
+.it--tape1  { --x: 0; }
+.it--tape2  { --x: 430; }
+.it--tape3  { --x: 860; }
+.it--rose    { --x: 59;   --y: 271; --w: 167; z-index: 7; }
+.it--watch   { --x: 536;  --y: 232; --w: 142; z-index: 7; }
+.it--wflower { --x: 1133; --y: 56;  --w: 307; z-index: 7; }
+/* tail */
+.it--chain4 { --x: 376; --y: -81; z-index: 2; }
+
+/* ---------- Copy blocks ---------- */
+.copy {
+  position: absolute;
+  z-index: 8;
+  width: calc(var(--cw, 560) * var(--u));
+  left: calc(var(--cx) * var(--u));
+  top: calc(var(--cy) * var(--u));
+  font-size: calc(24 * var(--u));
+  line-height: calc(29 * var(--u));
+}
+.copy--red     { --cx: 700; --cy: 315;  }
+.copy--green   { --cx: 94;  --cy: 482;  --cw: 548; }
+.copy--wedding { --cx: 66;  --cy: 1385; }
+
+.copy h2 {
+  position: relative;
+  margin: 0 0 calc(29 * var(--u));
+  padding-left: calc(37 * var(--u));
+  font-weight: 300;
+  font-size: inherit;
+  line-height: inherit;
+  color: #000;
+}
+.copy--green h2 { margin-bottom: calc(24 * var(--u)); }
+.copy h2::before {
+  content: "";
+  position: absolute;
+  left: calc(15 * var(--u));
+  top: .55em;
+  width: max(3px, calc(4 * var(--u)));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #000;
+}
+.copy p {
+  margin: 0;
+  font-weight: 200;
+  color: #3d3d3b;
+}
+.copy strong { font-weight: 400; color: #1c1c1c; }
+
+/* ---------- Footer ---------- */
+.footer {
+  height: calc(182 * var(--u));
+  background: #000;
+  display: grid;
+  place-items: center;
+  z-index: 6;
+}
+.footer p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: calc(36 * var(--u));
+  letter-spacing: .01em;
+  color: var(--cream);
+}
+
+/* =========================================================
+   TABLET  (641px – 1024px)
+   The collage keeps its exact proportions (it scales with the page);
+   type, nav and tap targets are kept at readable minimum sizes.
+   ========================================================= */
+@media (max-width: 1024px) {
+ 
+
+  .hero__welcome { font-size: max(calc(40 * var(--u)), 20px); line-height: 1.4; top: calc(205 * var(--u)); }
+  .hero__lead {
+    left: calc(120 * var(--u)); right: calc(120 * var(--u));
+    font-size: max(calc(26 * var(--u)), 15px);
+    line-height: 1.45;
+    top: calc(800 * var(--u));
+  }
+  .hero__rule { height: 2px; }
+
+  .copy { font-size: max(calc(24 * var(--u)), 14px); line-height: 1.55; }
+  .copy--red   { --cw: 600; }
+  .copy--green { --cw: 570; }
+  .copy h2 { margin-bottom: .9em; }
+  .footer p { font-size: max(calc(36 * var(--u)), 22px); }
+}
+
+/* =========================================================
+   MOBILE  (<= 640px)
+   Same composition as desktop (everything scales with the page width),
+   with a compact nav, a smaller hero and readable minimum type sizes.
+   ========================================================= */
+@media (max-width: 640px) {
+
+
+  .page { --m: calc(100cqw / 390); }
+
+  /* hero: shorter, single-line title, reduced text sizes */
+  .hero { height: calc(520 * var(--m)); }
+  .hero__img { height: calc(505 * var(--m)); object-position: 52% 40%; }
+  .hero__strip { top: calc(505 * var(--m)); height: calc(15 * var(--m)); }
+  .hero__welcome { top: calc(138 * var(--m)); font-size: calc(14 * var(--m)); line-height: 1.4; }
+  .hero__title {
+    top: calc(168 * var(--m));
+    font-size: 8cqw;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .hero__rule { left: calc(50% - 38 * var(--m)); width: calc(76 * var(--m)); top: calc(232 * var(--m)); height: 2px; }
+  .hero__lead {
+    left: calc(26 * var(--m)); right: calc(26 * var(--m));
+    top: calc(392 * var(--m));
+    font-size: calc(12 * var(--m));
+    line-height: 1.5;
+  }
+
+  /* copy: desktop positions, readable minimum size, boxes sized to the free space */
+  .copy { font-size: 11px; line-height: 1.5; }
+  .copy h2 { font-size: 11.5px; padding-left: 22px; margin-bottom: .8em; }
+  .copy h2::before { left: 8px; }
+  .copy--red     { --cx: 700; --cy: 300; width: calc(100cqw - 700 * var(--u) - 12px); }
+  .copy--green   { --cx: 88;  --cy: 300; width: calc(400 * var(--u)); font-size: 10px; }
+  .copy--green h2 { font-size: 10.5px; }
+  .copy--wedding { --cx: 66;  --cy: 1385; width: calc(100cqw - 66 * var(--u) - 130px); }
+
+  .sec--wedding { height: calc(1790 * var(--u)); }
+  .copy--wedding { --cy: 1300; }
+  .footer { height: max(calc(182 * var(--u)), 56px); }
+  .footer p { font-size: max(calc(36 * var(--u)), 16px); }
+}
+
+/* =========================================================
+   ENTRANCE ANIMATIONS (CSS only)
+   ========================================================= */
+@keyframes arm-in-left {
+  from { opacity: 0; transform: translate3d(calc(var(--u) * -230), calc(var(--u) * -26), 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes arm-in-right {
+  from { opacity: 0; transform: translate3d(calc(var(--u) * 230), calc(var(--u) * 22), 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes sun-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.it--arm1 { animation: arm-in-left  1.9s cubic-bezier(.22, .61, .36, 1) .35s both; }
+.it--arm2 { animation: arm-in-right 1.9s cubic-bezier(.22, .61, .36, 1) .75s both; }
+.it--sun  { animation: sun-fade     2.4s ease-in-out .25s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .it--arm1, .it--arm2, .it--sun { animation: none; opacity: 1; transform: none; }
+  .nav__pill a { transition: none; }
+}
