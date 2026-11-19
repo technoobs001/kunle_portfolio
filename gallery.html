@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Archive · Kunle Itunu</title>
+  <meta name="description" content="The digital archive of Kunle Itunu: a collection of original paintings that capture emotion, movement, and the essence of creative expression.">
+
+  <link rel="preload" href="images/gallery_hero.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="preload" href="images/curtain.webp" as="image" type="image/webp">
+  <link rel="preload" href="images/vine.webp" as="image" type="image/webp">
+  <link rel="preload" href="fonts/CormorantInfant-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="gallery/manifest.json" as="fetch" crossorigin>
+
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <script>document.documentElement.classList.add('js');</script>
+    <script src="js/navigation.js"></script>
+
+</head>
+<body>
+  <header class="nav" id="top">
+    <a class="nav__logo" href="index.html" aria-label="Kunle Ituno — home">KUNLE ITUNU</a>
+ <nav class="nav__pill" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html" >About</a>
+      <a href="gallery.html" class="is-active" aria-current="page">Archive</a>
+      <a href="contact.html">Contact Me</a>
+    </nav>
+    <button
+    class="nav__toggle"
+    type="button"
+    aria-label="Open navigation"
+    aria-expanded="false"
+    aria-controls="primary-navigation"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO: framed painting with a lace curtain that slides to the right and stays -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <h1 class="hero__title" id="hero-title">Welcome to<br><span>THE ARCHIVE</span></h1>
+        <p class="hero__lede">Explore the Digital Archive of <strong>KUNLE ITUNU</strong>. Explore a collection of original paintings that capture emotion, movement, and the essence of creative expression.</p>
+      </div>
+
+      <img class="hero__ivy" src="images/vine.webp" width="220" height="482" decoding="async" alt="">
+
+      <div class="hero__art">
+        <img class="hero__painting" src="images/gallery_hero.webp" width="988" height="1299" fetchpriority="high" decoding="async"
+             alt="A gilded frame holding an oil painting of a winged figure falling through a crimson sky">
+        <img class="hero__curtain" src="images/curtain.webp" width="702" height="1154" decoding="async" alt="">
+      </div>
+    </section>
+
+    <!-- GALLERY: built from gallery/manifest.json (written by gallery/process_images.py) -->
+    <section class="gallery" id="gallery" aria-label="Paintings">
+      <div class="scrapbook" data-scrapbook></div>
+      <p class="gallery__note" data-gallery-note hidden></p>
+      <noscript><p class="gallery__note">Please enable JavaScript to see the gallery.</p></noscript>
+    </section>
+
+    <!-- the pearl peeks over the footer -->
+    <div class="outro" aria-hidden="true">
+      <img class="outro__pearl" src="images/round_light_bronze.webp" width="583" height="424" loading="lazy" decoding="async" alt="">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Kunle Itunu</p>
+  </footer>
+
+  <script src="js/gallery.js" defer></script>
+</body>
+</html>

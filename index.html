@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/navigation.js"></script>
+      <script>document.documentElement.classList.add('js');</script>
+
   </head>
   <body>
     <!-- Fixed liquid-glass navigation -->
@@ -31,7 +33,7 @@
       <nav class="nav__pill" aria-label="Primary">
         <a href="#home" class="is-active" aria-current="page">Home</a>
         <a href="about.html">About</a>
-        <a href="#gallery">Archive</a>
+        <a href="gallery.html">Archive</a>
         <a href="contact.html">Contact Me</a>
       </nav>
 
@@ -93,7 +95,7 @@
             height="1308"
           />
           <img
-            class="it it--sun"
+            class="it it--sun reveal reveal--fade"
             src="images/golden_half_sun.png"
             alt=""
             width="289"
@@ -201,14 +203,14 @@
             height="1144"
           />
           <img
-            class="it it--arm1"
+            class="it it--arm1 reveal reveal--arm-left"
             src="images/first_arm.png"
             alt=""
             width="543"
             height="709"
           />
           <img
-            class="it it--arm2"
+            class="it it--arm2 reveal reveal--arm-right"
             src="images/second_arm.png"
             alt=""
             width="527"
@@ -303,6 +305,20 @@
       <footer class="footer">
         <p>KUNLE ITUNU</p>
       </footer>
+
+        <script>
+    /* Reveal-on-scroll: toggles .is-in once, so the CSS animations play when the artwork is actually seen. */
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
     </main>
   </body>
 </html>

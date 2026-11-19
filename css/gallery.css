@@ -1,0 +1,360 @@
+
+/* ==========================================================================
+   KUNLE ITUNU ARCHIVE — GALLERY PAGE
+   Shared styles are handled by common.css.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   GALLERY-SPECIFIC VARIABLES
+   ========================================================================== */
+
+:root {
+  --u: calc(min(100vw, 2400px) / 1440);
+
+  --ink-body: #595956;
+
+  --curtain-ease: cubic-bezier(.65, .05, .25, 1);
+  --curtain-time: 2.9s;
+}
+
+
+
+   body .nav .nav__logo {
+  color: var(--ink-body);
+}
+
+body {
+  margin: 0 auto;
+  max-width: 2400px;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: clip;
+}
+
+.hero {
+  position: relative;
+  height: calc(1299 * var(--u));
+  overflow: clip;
+}
+
+.hero__copy {
+  position: absolute;
+  left: calc(38 * var(--u));
+  top: calc(163 * var(--u));
+  width: max(calc(430 * var(--u)), 124px);
+  z-index: 999;
+}
+
+.hero__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: max(17px, calc(40 * var(--u)));
+  line-height: max(20px, calc(47 * var(--u)));
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+.hero__title span {
+  text-transform: uppercase;
+}
+
+.hero__lede {
+  margin-top: calc(65 * var(--u));
+  font-family: var(--font-sans);
+  font-size: max(9.5px, calc(16.5 * var(--u)));
+  line-height: max(12.5px, calc(19.5 * var(--u)));
+  font-weight: 200;
+  color: var(--ink-body);
+}
+
+.hero__lede strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+
+/* ==========================================================================
+   IVY DECORATION
+   ========================================================================== */
+
+.hero__ivy {
+  position: absolute;
+  left: calc(15 * var(--u));
+  top: calc(1 * var(--u));
+  width: calc(350 * var(--u));
+  height: calc(482 * var(--u) * 1.15);
+  object-fit: fill;
+  object-position: top;
+  z-index: 101;
+  pointer-events: none;
+}
+
+
+
+
+/* ==========================================================================
+   HERO ARTWORK
+   ========================================================================== */
+
+.hero__art {
+  position: absolute;
+  left: calc(452 * var(--u));
+  top: 0;
+  width: calc(988 * var(--u));
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero__painting {
+  width: 100%;
+  height: auto;
+}
+
+
+/* ==========================================================================
+   CURTAIN ANIMATION
+   ========================================================================== */
+.hero__curtain {
+  position: absolute;
+  top: 0;
+  left: 28.95%;
+  width: 71.05%;
+  height: auto;
+  z-index: 2;
+  transform: translate3d(0, 0, 0);
+}
+
+.js .hero__curtain {
+  animation: curtain-slide var(--curtain-time) var(--curtain-ease) .45s both paused;
+  will-change: transform;
+}
+
+.js .hero.is-ready .hero__curtain {
+  animation-play-state: running;
+}
+
+@keyframes curtain-slide {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(var(--curtain-to, 38.2%), 0, 0);
+  }
+}
+/* ==========================================================================
+   SCRAPBOOK
+   Positions come from gallery.js.
+   Sizes come from gallery/manifest.json.
+   ========================================================================== */
+
+.gallery {
+  position: relative;
+  margin-top: calc(56 * var(--u));
+}
+
+.scrapbook {
+  position: relative;
+  width: 100%;
+  container-type: inline-size;
+}
+
+.frame {
+  position: absolute;
+  margin: 0;
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: 50% 50%;
+  transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+}
+
+.frame picture,
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* Frame hover */
+
+@media (hover: hover) {
+  .frame:hover {
+    transform: rotate(0deg) scale(1.025);
+    z-index: 5;
+  }
+}
+
+
+/* Frame reveal animation */
+
+.js .frame:not(.is-in) {
+  opacity: 0;
+  transform:
+    translate3d(0, 46px, 0)
+    rotate(var(--rot, 0deg))
+    scale(.985);
+  transition: none;
+}
+
+.js .frame.is-in {
+  animation: frame-in 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes frame-in {
+  from {
+    opacity: 0;
+    transform:
+      translate3d(0, 46px, 0)
+      rotate(var(--rot, 0deg))
+      scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translate3d(0, 0, 0)
+      rotate(var(--rot, 0deg))
+      scale(1);
+  }
+}
+
+
+/* Gallery note */
+
+.gallery__note {
+  margin: calc(60 * var(--u)) auto;
+  max-width: 34em;
+  padding: 0 24px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+
+/* ==========================================================================
+   PEARL + FOOTER
+   ========================================================================== */
+
+.outro {
+  position: relative;
+  height: calc(241 * var(--u));
+  margin-top: calc(100 * var(--u));
+  overflow: hidden;
+}
+
+.outro__pearl {
+  position: absolute;
+  left: calc(867 * var(--u));
+  top: 0;
+  width: calc(583 * var(--u));
+  height: auto;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 10;
+  height: calc(182 * var(--u));
+  min-height: 84px;
+  display: grid;
+  place-items: center;
+  background: #000;
+  color: #fff;
+}
+
+.site-footer p {
+  font-family: var(--font-sans);
+  font-size: max(18px, calc(34 * var(--u)));
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  font-weight: 300;
+  line-height: 1;
+}
+
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .hero__curtain {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .js .frame:not(.is-in),
+  .js .frame.is-in {
+    animation: none;
+    opacity: 1;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+@media (max-width: 700px) {
+  :root {
+    --curtain-time: 2.6s;
+  }
+
+  .hero {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  /* Keep the artwork at its original scaled size */
+  .hero__art {
+    position: relative;
+    order: 1;
+    left: auto;
+    top: auto;
+    width: calc(988 * var(--u));
+    align-self: flex-end;
+  }
+
+  /* Place copy after the artwork */
+  .hero__copy {
+    position: relative;
+    order: 2;
+    left: auto;
+    top: auto;
+    width: auto;
+    padding: 30px 24px 45px;
+    z-index: 999;
+  }
+
+  .hero__title {
+    font-size: clamp(28px, 7vw, 42px);
+    line-height: 1.1;
+  }
+
+  .hero__lede {
+    margin-top: 22px;
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.6;
+  }
+
+    .hero__curtain {
+    --curtain-to: 42%;
+  }
+
+.hero__ivy {
+  z-index: 3;
+  width: calc(440 * var(--u));
+  height: calc(482 * var(--u) * 1.45);
+  object-fit: fill;
+  object-position: top;
+}
+}

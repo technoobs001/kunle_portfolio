@@ -1,0 +1,19 @@
+# Apache: caching rules for the gallery (needs mod_headers + mod_expires)
+<IfModule mod_headers.c>
+  # content-hashed images never change
+  <If "%{REQUEST_URI} =~ m#^/gallery/generated/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # the manifest must be revalidated so new photos show up immediately
+  <FilesMatch "^manifest\.(json|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <If "%{REQUEST_URI} =~ m#^/(assets|fonts|gallery/frames|gallery/stickers)/#">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </If>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+AddType image/avif .avif
+AddType image/webp .webp

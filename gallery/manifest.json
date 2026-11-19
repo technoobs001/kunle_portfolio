@@ -1,0 +1,1741 @@
+{
+  "version": 1,
+  "generated": "2026-11-19T07:45:01+0100",
+  "seed": 32,
+  "config": "cc67eb984e",
+  "formats": [
+    "webp",
+    "avif"
+  ],
+  "overlay": {
+    "color": [
+      252,
+      247,
+      238
+    ],
+    "opacity": 0.12
+  },
+  "frames": {
+    "landscape-frame-01": {
+      "file": "frames/landscape-frame-01.png",
+      "hash": "fa7a19a154ebfbc7",
+      "canvas": [
+        420,
+        300
+      ],
+      "window": {
+        "x": 34,
+        "y": 32,
+        "w": 353,
+        "h": 234
+      },
+      "aspect": 1.509,
+      "shape": "rect",
+      "orientation": "landscape",
+      "uses": 1
+    },
+    "landscape-frame-02": {
+      "file": "frames/landscape-frame-02.png",
+      "hash": "aae22729ef1e62bc",
+      "canvas": [
+        906,
+        628
+      ],
+      "window": {
+        "x": 88,
+        "y": 78,
+        "w": 731,
+        "h": 468
+      },
+      "aspect": 1.562,
+      "shape": "rect",
+      "orientation": "landscape",
+      "uses": 2
+    },
+    "landscape-frame-03": {
+      "file": "frames/landscape-frame-03.png",
+      "hash": "7e2868cf72618016",
+      "canvas": [
+        735,
+        588
+      ],
+      "window": {
+        "x": 114,
+        "y": 128,
+        "w": 501,
+        "h": 333
+      },
+      "aspect": 1.505,
+      "shape": "rect",
+      "orientation": "landscape",
+      "uses": 1
+    },
+    "landscape-frame-04": {
+      "file": "frames/landscape-frame-04.png",
+      "hash": "81b7296a7624e5b5",
+      "canvas": [
+        736,
+        736
+      ],
+      "window": {
+        "x": 128,
+        "y": 226,
+        "w": 480,
+        "h": 285
+      },
+      "aspect": 1.684,
+      "shape": "rect",
+      "orientation": "landscape",
+      "uses": 0
+    },
+    "portrait-frame-01": {
+      "file": "frames/portrait-frame-01.png",
+      "hash": "a1cc2424bfcbfdbd",
+      "canvas": [
+        302,
+        435
+      ],
+      "window": {
+        "x": 40,
+        "y": 42,
+        "w": 224,
+        "h": 351
+      },
+      "aspect": 0.638,
+      "shape": "rect",
+      "orientation": "portrait",
+      "uses": 3
+    },
+    "portrait-frame-02": {
+      "file": "frames/portrait-frame-02.png",
+      "hash": "83c83571f1b91eb5",
+      "canvas": [
+        338,
+        388
+      ],
+      "window": {
+        "x": 50,
+        "y": 46,
+        "w": 240,
+        "h": 298
+      },
+      "aspect": 0.805,
+      "shape": "oval",
+      "orientation": "portrait",
+      "uses": 3
+    },
+    "portrait-frame-03": {
+      "file": "frames/portrait-frame-03.png",
+      "hash": "d4230e78ab62f923",
+      "canvas": [
+        307,
+        385
+      ],
+      "window": {
+        "x": 59,
+        "y": 71,
+        "w": 187,
+        "h": 246
+      },
+      "aspect": 0.76,
+      "shape": "oval",
+      "orientation": "portrait",
+      "uses": 3
+    },
+    "portrait-frame-04": {
+      "file": "frames/portrait-frame-04.png",
+      "hash": "06e9213ba8dd5416",
+      "canvas": [
+        594,
+        723
+      ],
+      "window": {
+        "x": 91,
+        "y": 94,
+        "w": 411,
+        "h": 538
+      },
+      "aspect": 0.764,
+      "shape": "oval",
+      "orientation": "portrait",
+      "uses": 2
+    },
+    "portrait-frame-05": {
+      "file": "frames/portrait-frame-05.png",
+      "hash": "f268885b0ed0a6ee",
+      "canvas": [
+        447,
+        667
+      ],
+      "window": {
+        "x": 74,
+        "y": 136,
+        "w": 295,
+        "h": 424
+      },
+      "aspect": 0.696,
+      "shape": "oval",
+      "orientation": "portrait",
+      "uses": 2
+    },
+    "portrait-frame-06": {
+      "file": "frames/portrait-frame-06.png",
+      "hash": "be375e7afa9b9401",
+      "canvas": [
+        449,
+        449
+      ],
+      "window": {
+        "x": 113,
+        "y": 80,
+        "w": 240,
+        "h": 302
+      },
+      "aspect": 0.795,
+      "shape": "rect",
+      "orientation": "portrait",
+      "uses": 3
+    },
+    "portrait-frame-07": {
+      "file": "frames/portrait-frame-07.png",
+      "hash": "f2f856c743eb53cd",
+      "canvas": [
+        380,
+        455
+      ],
+      "window": {
+        "x": 44,
+        "y": 33,
+        "w": 290,
+        "h": 387
+      },
+      "aspect": 0.749,
+      "shape": "oval",
+      "orientation": "portrait",
+      "uses": 4
+    }
+  },
+  "stickers": {
+    "sticker-01-chain": {
+      "file": "stickers/sticker-01-chain.png"
+    },
+    "sticker-02-clover": {
+      "file": "stickers/sticker-02-clover.png"
+    },
+    "sticker-03-flower-base": {
+      "file": "stickers/sticker-03-flower-base.png"
+    },
+    "sticker-04-gold-sun": {
+      "file": "stickers/sticker-04-gold-sun.png"
+    },
+    "sticker-05-moon": {
+      "file": "stickers/sticker-05-moon.png"
+    },
+    "sticker-06-paper-cotton-flower": {
+      "file": "stickers/sticker-06-paper-cotton-flower.png"
+    },
+    "sticker-07-paper-pink-flower": {
+      "file": "stickers/sticker-07-paper-pink-flower.png"
+    },
+    "sticker-08-paper-rose": {
+      "file": "stickers/sticker-08-paper-rose.png"
+    },
+    "sticker-09-rome-block": {
+      "file": "stickers/sticker-09-rome-block.png"
+    },
+    "sticker-10-vine": {
+      "file": "stickers/sticker-10-vine.png"
+    }
+  },
+  "items": [
+    {
+      "id": "landspace-image",
+      "source": "landspace_image.png",
+      "source_hash": "5c0e031738647206",
+      "orientation": "landscape",
+      "photo_size": [
+        316,
+        215
+      ],
+      "frame": "landscape-frame-02",
+      "frame_hash": "aae22729ef1e62bc",
+      "stickers": [
+        {
+          "id": "sticker-03-flower-base",
+          "cx": 0.0145,
+          "cy": 0.1083,
+          "width": 0.2874,
+          "rotation": 0.7,
+          "flip": false
+        },
+        {
+          "id": "sticker-10-vine",
+          "cx": 0.7466,
+          "cy": 0.3431,
+          "width": 0.1593,
+          "rotation": -3.8,
+          "flip": true,
+          "crop": [
+            25,
+            0,
+            246,
+            484
+          ]
+        }
+      ],
+      "recipe": "18c6f9387e",
+      "width": 898,
+      "height": 646,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/landspace-image-18c6f9387e-360w.webp",
+            "w": 360,
+            "bytes": 26106
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-560w.webp",
+            "w": 560,
+            "bytes": 52796
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-800w.webp",
+            "w": 800,
+            "bytes": 89392
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-898w.webp",
+            "w": 898,
+            "bytes": 91520
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/landspace-image-18c6f9387e-360w.avif",
+            "w": 360,
+            "bytes": 14033
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-560w.avif",
+            "w": 560,
+            "bytes": 27599
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-800w.avif",
+            "w": 800,
+            "bytes": 47054
+          },
+          {
+            "src": "generated/landspace-image-18c6f9387e-898w.avif",
+            "w": 898,
+            "bytes": 50512
+          }
+        ]
+      },
+      "alt": "Landspace image",
+      "title": "",
+      "layout": {
+        "size": 0.787,
+        "rotation": 1.55,
+        "jitter_x": -0.072,
+        "jitter_y": 0.541,
+        "seed": 143702524
+      }
+    },
+    {
+      "id": "portrait-image",
+      "source": "portrait_image.png",
+      "source_hash": "8f9499f15a24bd0d",
+      "orientation": "portrait",
+      "photo_size": [
+        156,
+        226
+      ],
+      "frame": "portrait-frame-01",
+      "frame_hash": "a1cc2424bfcbfdbd",
+      "stickers": [
+        {
+          "id": "sticker-09-rome-block",
+          "cx": 0.9189,
+          "cy": 0.9976,
+          "width": 0.2743,
+          "rotation": -11.1,
+          "flip": true
+        }
+      ],
+      "recipe": "7e08f4d8cb",
+      "width": 330,
+      "height": 521,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/portrait-image-7e08f4d8cb-330w.webp",
+            "w": 330,
+            "bytes": 33316
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/portrait-image-7e08f4d8cb-330w.avif",
+            "w": 330,
+            "bytes": 17785
+          }
+        ]
+      },
+      "alt": "Portrait image",
+      "title": "",
+      "layout": {
+        "size": 0.035,
+        "rotation": 2.02,
+        "jitter_x": -0.029,
+        "jitter_y": 0.075,
+        "seed": 581854878
+      }
+    },
+    {
+      "id": "f9cf9525-a277-4b7c-808f-2aaee279b219",
+      "source": "F9CF9525-A277-4B7C-808F-2AAEE279B219.jpg",
+      "source_hash": "e6bfb4d1345e7a32",
+      "orientation": "portrait",
+      "photo_size": [
+        706,
+        885
+      ],
+      "frame": "portrait-frame-07",
+      "frame_hash": "f2f856c743eb53cd",
+      "stickers": [
+        {
+          "id": "sticker-02-clover",
+          "cx": 0.0963,
+          "cy": 0.3045,
+          "width": 0.2091,
+          "rotation": -5.0,
+          "flip": true
+        },
+        {
+          "id": "sticker-05-moon",
+          "cx": 0.0225,
+          "cy": 0.7288,
+          "width": 0.291,
+          "rotation": 13.0,
+          "flip": false
+        }
+      ],
+      "recipe": "33e944292b",
+      "width": 436,
+      "height": 481,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/f9cf9525-a277-4b7c-808f-2aaee279b219-33e944292b-360w.webp",
+            "w": 360,
+            "bytes": 37744
+          },
+          {
+            "src": "generated/f9cf9525-a277-4b7c-808f-2aaee279b219-33e944292b-436w.webp",
+            "w": 436,
+            "bytes": 44500
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/f9cf9525-a277-4b7c-808f-2aaee279b219-33e944292b-360w.avif",
+            "w": 360,
+            "bytes": 19107
+          },
+          {
+            "src": "generated/f9cf9525-a277-4b7c-808f-2aaee279b219-33e944292b-436w.avif",
+            "w": 436,
+            "bytes": 23974
+          }
+        ]
+      },
+      "alt": "F9cf9525 a277 4b7c 808f 2aaee279b219",
+      "title": "",
+      "layout": {
+        "size": 0.733,
+        "rotation": 1.85,
+        "jitter_x": -0.78,
+        "jitter_y": 0.807,
+        "seed": 341734781
+      }
+    },
+    {
+      "id": "img-3dcd4478485b-1",
+      "source": "IMG_3DCD4478485B-1.jpeg",
+      "source_hash": "a2b8d466edd847d3",
+      "orientation": "portrait",
+      "photo_size": [
+        1418,
+        2048
+      ],
+      "frame": "portrait-frame-03",
+      "frame_hash": "d4230e78ab62f923",
+      "stickers": [
+        {
+          "id": "sticker-08-paper-rose",
+          "cx": 0.1465,
+          "cy": 0.7842,
+          "width": 0.1998,
+          "rotation": 11.8,
+          "flip": true
+        }
+      ],
+      "recipe": "6ed7da28b0",
+      "width": 300,
+      "height": 353,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-3dcd4478485b-1-6ed7da28b0-300w.webp",
+            "w": 300,
+            "bytes": 25296
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-3dcd4478485b-1-6ed7da28b0-300w.avif",
+            "w": 300,
+            "bytes": 14194
+          }
+        ]
+      },
+      "alt": "Img 3dcd4478485b 1",
+      "title": "",
+      "layout": {
+        "size": 0.206,
+        "rotation": -0.51,
+        "jitter_x": 0.26,
+        "jitter_y": 0.305,
+        "seed": 687084651
+      }
+    },
+    {
+      "id": "img-1254",
+      "source": "IMG_1254.JPG",
+      "source_hash": "9109201860115781",
+      "orientation": "portrait",
+      "photo_size": [
+        2201,
+        2537
+      ],
+      "frame": "portrait-frame-02",
+      "frame_hash": "83c83571f1b91eb5",
+      "stickers": [
+        {
+          "id": "sticker-01-chain",
+          "cx": 0.346,
+          "cy": 0.0104,
+          "width": 0.2005,
+          "rotation": 13.9,
+          "flip": true
+        }
+      ],
+      "recipe": "ad893148cc",
+      "width": 358,
+      "height": 438,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1254-ad893148cc-358w.webp",
+            "w": 358,
+            "bytes": 36294
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1254-ad893148cc-358w.avif",
+            "w": 358,
+            "bytes": 19461
+          }
+        ]
+      },
+      "alt": "Img 1254",
+      "title": "",
+      "layout": {
+        "size": 0.22,
+        "rotation": -0.01,
+        "jitter_x": 0.272,
+        "jitter_y": 0.446,
+        "seed": 664014635
+      }
+    },
+    {
+      "id": "img-1255",
+      "source": "IMG_1255.JPG",
+      "source_hash": "3fe8c26dc22b136c",
+      "orientation": "portrait",
+      "photo_size": [
+        2104,
+        2493
+      ],
+      "frame": "portrait-frame-06",
+      "frame_hash": "be375e7afa9b9401",
+      "stickers": [
+        {
+          "id": "sticker-02-clover",
+          "cx": 0.1007,
+          "cy": 0.9282,
+          "width": 0.2331,
+          "rotation": -11.2,
+          "flip": false
+        },
+        {
+          "id": "sticker-06-paper-cotton-flower",
+          "cx": 0.9055,
+          "cy": 0.2874,
+          "width": 0.1768,
+          "rotation": 16.8,
+          "flip": false
+        }
+      ],
+      "recipe": "3cd4ec5111",
+      "width": 455,
+      "height": 469,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1255-3cd4ec5111-360w.webp",
+            "w": 360,
+            "bytes": 43126
+          },
+          {
+            "src": "generated/img-1255-3cd4ec5111-455w.webp",
+            "w": 455,
+            "bytes": 56808
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1255-3cd4ec5111-360w.avif",
+            "w": 360,
+            "bytes": 21607
+          },
+          {
+            "src": "generated/img-1255-3cd4ec5111-455w.avif",
+            "w": 455,
+            "bytes": 29884
+          }
+        ]
+      },
+      "alt": "Img 1255",
+      "title": "",
+      "layout": {
+        "size": 0.157,
+        "rotation": 2.09,
+        "jitter_x": 0.153,
+        "jitter_y": 0.164,
+        "seed": 2085517390
+      }
+    },
+    {
+      "id": "img-1257",
+      "source": "IMG_1257.JPG",
+      "source_hash": "79a3bdb3dd3eb9a8",
+      "orientation": "portrait",
+      "photo_size": [
+        2179,
+        2523
+      ],
+      "frame": "portrait-frame-07",
+      "frame_hash": "f2f856c743eb53cd",
+      "stickers": [
+        {
+          "id": "sticker-10-vine",
+          "cx": 0.6522,
+          "cy": 0.3728,
+          "width": 0.3203,
+          "rotation": -3.0,
+          "flip": true,
+          "crop": [
+            25,
+            0,
+            246,
+            484
+          ]
+        },
+        {
+          "id": "sticker-03-flower-base",
+          "cx": 0.7939,
+          "cy": 0.9279,
+          "width": 0.2015,
+          "rotation": 11.2,
+          "flip": true
+        }
+      ],
+      "recipe": "f7bc664366",
+      "width": 406,
+      "height": 491,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1257-f7bc664366-360w.webp",
+            "w": 360,
+            "bytes": 41324
+          },
+          {
+            "src": "generated/img-1257-f7bc664366-406w.webp",
+            "w": 406,
+            "bytes": 44274
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1257-f7bc664366-360w.avif",
+            "w": 360,
+            "bytes": 21227
+          },
+          {
+            "src": "generated/img-1257-f7bc664366-406w.avif",
+            "w": 406,
+            "bytes": 23443
+          }
+        ]
+      },
+      "alt": "Img 1257",
+      "title": "",
+      "layout": {
+        "size": 0.714,
+        "rotation": 2.26,
+        "jitter_x": -0.285,
+        "jitter_y": 0.694,
+        "seed": 113740425
+      }
+    },
+    {
+      "id": "img-1258",
+      "source": "IMG_1258.JPG",
+      "source_hash": "8a77f0cdf280cef8",
+      "orientation": "square",
+      "photo_size": [
+        3058,
+        3072
+      ],
+      "frame": "portrait-frame-04",
+      "frame_hash": "06e9213ba8dd5416",
+      "stickers": [
+        {
+          "id": "sticker-07-paper-pink-flower",
+          "cx": 0.6481,
+          "cy": 0.9488,
+          "width": 0.2724,
+          "rotation": -18.4,
+          "flip": true
+        }
+      ],
+      "recipe": "42134252d4",
+      "width": 636,
+      "height": 797,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1258-42134252d4-360w.webp",
+            "w": 360,
+            "bytes": 40292
+          },
+          {
+            "src": "generated/img-1258-42134252d4-560w.webp",
+            "w": 560,
+            "bytes": 75510
+          },
+          {
+            "src": "generated/img-1258-42134252d4-636w.webp",
+            "w": 636,
+            "bytes": 79564
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1258-42134252d4-360w.avif",
+            "w": 360,
+            "bytes": 21410
+          },
+          {
+            "src": "generated/img-1258-42134252d4-560w.avif",
+            "w": 560,
+            "bytes": 40493
+          },
+          {
+            "src": "generated/img-1258-42134252d4-636w.avif",
+            "w": 636,
+            "bytes": 43214
+          }
+        ]
+      },
+      "alt": "Img 1258",
+      "title": "",
+      "layout": {
+        "size": 0.673,
+        "rotation": -2.07,
+        "jitter_x": -0.944,
+        "jitter_y": 0.839,
+        "seed": 1567684518
+      }
+    },
+    {
+      "id": "img-1259",
+      "source": "IMG_1259.JPG",
+      "source_hash": "3c3a83a0f4e20168",
+      "orientation": "landscape",
+      "photo_size": [
+        2067,
+        1569
+      ],
+      "frame": "landscape-frame-01",
+      "frame_hash": "fa7a19a154ebfbc7",
+      "stickers": [
+        {
+          "id": "sticker-04-gold-sun",
+          "cx": 0.1271,
+          "cy": 1.0118,
+          "width": 0.3013,
+          "rotation": -11.1,
+          "flip": false
+        }
+      ],
+      "recipe": "6976f93ee8",
+      "width": 455,
+      "height": 387,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1259-6976f93ee8-360w.webp",
+            "w": 360,
+            "bytes": 31394
+          },
+          {
+            "src": "generated/img-1259-6976f93ee8-455w.webp",
+            "w": 455,
+            "bytes": 37652
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1259-6976f93ee8-360w.avif",
+            "w": 360,
+            "bytes": 16579
+          },
+          {
+            "src": "generated/img-1259-6976f93ee8-455w.avif",
+            "w": 455,
+            "bytes": 20497
+          }
+        ]
+      },
+      "alt": "Img 1259",
+      "title": "",
+      "layout": {
+        "size": 0.759,
+        "rotation": 1.79,
+        "jitter_x": 0.407,
+        "jitter_y": 0.81,
+        "seed": 1525000874
+      }
+    },
+    {
+      "id": "img-1260",
+      "source": "IMG_1260.JPG",
+      "source_hash": "b81ed71fe705141a",
+      "orientation": "square",
+      "photo_size": [
+        2262,
+        2186
+      ],
+      "frame": "portrait-frame-03",
+      "frame_hash": "d4230e78ab62f923",
+      "stickers": [
+        {
+          "id": "sticker-03-flower-base",
+          "cx": 0.6352,
+          "cy": 0.9013,
+          "width": 0.2681,
+          "rotation": -10.9,
+          "flip": false
+        },
+        {
+          "id": "sticker-07-paper-pink-flower",
+          "cx": 0.8727,
+          "cy": 0.5747,
+          "width": 0.2269,
+          "rotation": -0.9,
+          "flip": false
+        }
+      ],
+      "recipe": "e60e41b6a6",
+      "width": 297,
+      "height": 389,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1260-e60e41b6a6-297w.webp",
+            "w": 297,
+            "bytes": 28570
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1260-e60e41b6a6-297w.avif",
+            "w": 297,
+            "bytes": 15901
+          }
+        ]
+      },
+      "alt": "Img 1260",
+      "title": "",
+      "layout": {
+        "size": 0.664,
+        "rotation": 1.65,
+        "jitter_x": 0.491,
+        "jitter_y": 0.809,
+        "seed": 1993856876
+      }
+    },
+    {
+      "id": "img-1261",
+      "source": "IMG_1261.JPG",
+      "source_hash": "5ea890a7242304f2",
+      "orientation": "portrait",
+      "photo_size": [
+        2252,
+        2664
+      ],
+      "frame": "portrait-frame-06",
+      "frame_hash": "be375e7afa9b9401",
+      "stickers": [
+        {
+          "id": "sticker-04-gold-sun",
+          "cx": 0.8864,
+          "cy": 0.2984,
+          "width": 0.2425,
+          "rotation": 17.5,
+          "flip": true
+        },
+        {
+          "id": "sticker-08-paper-rose",
+          "cx": 0.1203,
+          "cy": 0.6192,
+          "width": 0.2165,
+          "rotation": 6.5,
+          "flip": false
+        }
+      ],
+      "recipe": "14c80c27e5",
+      "width": 473,
+      "height": 464,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1261-14c80c27e5-360w.webp",
+            "w": 360,
+            "bytes": 45610
+          },
+          {
+            "src": "generated/img-1261-14c80c27e5-473w.webp",
+            "w": 473,
+            "bytes": 65162
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1261-14c80c27e5-360w.avif",
+            "w": 360,
+            "bytes": 23313
+          },
+          {
+            "src": "generated/img-1261-14c80c27e5-473w.avif",
+            "w": 473,
+            "bytes": 33678
+          }
+        ]
+      },
+      "alt": "Img 1261",
+      "title": "",
+      "layout": {
+        "size": 0.632,
+        "rotation": 2.15,
+        "jitter_x": 0.688,
+        "jitter_y": 0.82,
+        "seed": 266235054
+      }
+    },
+    {
+      "id": "img-1262",
+      "source": "IMG_1262.JPG",
+      "source_hash": "8686a6b2eab0d138",
+      "orientation": "landscape",
+      "photo_size": [
+        2731,
+        2199
+      ],
+      "frame": "landscape-frame-03",
+      "frame_hash": "7e2868cf72618016",
+      "stickers": [],
+      "recipe": "b1853d8f8e",
+      "width": 739,
+      "height": 586,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1262-b1853d8f8e-360w.webp",
+            "w": 360,
+            "bytes": 30310
+          },
+          {
+            "src": "generated/img-1262-b1853d8f8e-560w.webp",
+            "w": 560,
+            "bytes": 58832
+          },
+          {
+            "src": "generated/img-1262-b1853d8f8e-739w.webp",
+            "w": 739,
+            "bytes": 76286
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1262-b1853d8f8e-360w.avif",
+            "w": 360,
+            "bytes": 15422
+          },
+          {
+            "src": "generated/img-1262-b1853d8f8e-560w.avif",
+            "w": 560,
+            "bytes": 28797
+          },
+          {
+            "src": "generated/img-1262-b1853d8f8e-739w.avif",
+            "w": 739,
+            "bytes": 38895
+          }
+        ]
+      },
+      "alt": "Img 1262",
+      "title": "",
+      "layout": {
+        "size": 0.524,
+        "rotation": -0.42,
+        "jitter_x": 0.124,
+        "jitter_y": 0.773,
+        "seed": 1030828451
+      }
+    },
+    {
+      "id": "img-1279",
+      "source": "IMG_1279.JPG",
+      "source_hash": "20187e4e9228ea75",
+      "orientation": "portrait",
+      "photo_size": [
+        1484,
+        2140
+      ],
+      "frame": "portrait-frame-01",
+      "frame_hash": "a1cc2424bfcbfdbd",
+      "stickers": [
+        {
+          "id": "sticker-02-clover",
+          "cx": 0.078,
+          "cy": 0.9809,
+          "width": 0.2752,
+          "rotation": 4.2,
+          "flip": true
+        }
+      ],
+      "recipe": "d3efbdd2d2",
+      "width": 317,
+      "height": 463,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1279-d3efbdd2d2-317w.webp",
+            "w": 317,
+            "bytes": 32138
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1279-d3efbdd2d2-317w.avif",
+            "w": 317,
+            "bytes": 17438
+          }
+        ]
+      },
+      "alt": "Img 1279",
+      "title": "",
+      "layout": {
+        "size": 0.288,
+        "rotation": 2.41,
+        "jitter_x": 0.881,
+        "jitter_y": 0.926,
+        "seed": 1389692826
+      }
+    },
+    {
+      "id": "img-1280",
+      "source": "IMG_1280.JPG",
+      "source_hash": "304e1574084d6365",
+      "orientation": "portrait",
+      "photo_size": [
+        1656,
+        2900
+      ],
+      "frame": "portrait-frame-07",
+      "frame_hash": "f2f856c743eb53cd",
+      "stickers": [
+        {
+          "id": "sticker-08-paper-rose",
+          "cx": 0.2383,
+          "cy": 0.1326,
+          "width": 0.2782,
+          "rotation": -21.7,
+          "flip": false
+        },
+        {
+          "id": "sticker-05-moon",
+          "cx": 0.946,
+          "cy": 0.6008,
+          "width": 0.3065,
+          "rotation": -12.6,
+          "flip": true
+        }
+      ],
+      "recipe": "0e85d68d50",
+      "width": 425,
+      "height": 514,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1280-0e85d68d50-360w.webp",
+            "w": 360,
+            "bytes": 40322
+          },
+          {
+            "src": "generated/img-1280-0e85d68d50-425w.webp",
+            "w": 425,
+            "bytes": 45858
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1280-0e85d68d50-360w.avif",
+            "w": 360,
+            "bytes": 20216
+          },
+          {
+            "src": "generated/img-1280-0e85d68d50-425w.avif",
+            "w": 425,
+            "bytes": 23955
+          }
+        ]
+      },
+      "alt": "Img 1280",
+      "title": "",
+      "layout": {
+        "size": 0.476,
+        "rotation": -0.38,
+        "jitter_x": -0.662,
+        "jitter_y": 0.011,
+        "seed": 268092729
+      }
+    },
+    {
+      "id": "img-1283",
+      "source": "IMG_1283.JPG",
+      "source_hash": "50c740c7943dacfa",
+      "orientation": "portrait",
+      "photo_size": [
+        2238,
+        3072
+      ],
+      "frame": "portrait-frame-03",
+      "frame_hash": "d4230e78ab62f923",
+      "stickers": [],
+      "recipe": "da6d816c94",
+      "width": 297,
+      "height": 353,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1283-da6d816c94-297w.webp",
+            "w": 297,
+            "bytes": 21592
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1283-da6d816c94-297w.avif",
+            "w": 297,
+            "bytes": 12642
+          }
+        ]
+      },
+      "alt": "Img 1283",
+      "title": "",
+      "layout": {
+        "size": 0.474,
+        "rotation": -2.06,
+        "jitter_x": -0.074,
+        "jitter_y": 0.348,
+        "seed": 935704327
+      }
+    },
+    {
+      "id": "img-1284",
+      "source": "IMG_1284.JPG",
+      "source_hash": "d2124df0e5575e0f",
+      "orientation": "portrait",
+      "photo_size": [
+        2698,
+        3072
+      ],
+      "frame": "portrait-frame-02",
+      "frame_hash": "83c83571f1b91eb5",
+      "stickers": [],
+      "recipe": "72134d709d",
+      "width": 358,
+      "height": 410,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1284-72134d709d-358w.webp",
+            "w": 358,
+            "bytes": 39722
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1284-72134d709d-358w.avif",
+            "w": 358,
+            "bytes": 21606
+          }
+        ]
+      },
+      "alt": "Img 1284",
+      "title": "",
+      "layout": {
+        "size": 0.822,
+        "rotation": 2.25,
+        "jitter_x": 0.144,
+        "jitter_y": 0.911,
+        "seed": 50122261
+      }
+    },
+    {
+      "id": "img-1285",
+      "source": "IMG_1285.JPG",
+      "source_hash": "90f849a12587b1d9",
+      "orientation": "portrait",
+      "photo_size": [
+        1514,
+        2216
+      ],
+      "frame": "portrait-frame-01",
+      "frame_hash": "a1cc2424bfcbfdbd",
+      "stickers": [
+        {
+          "id": "sticker-08-paper-rose",
+          "cx": 0.0109,
+          "cy": 0.4805,
+          "width": 0.2815,
+          "rotation": 16.3,
+          "flip": false
+        },
+        {
+          "id": "sticker-02-clover",
+          "cx": 0.6521,
+          "cy": 0.0757,
+          "width": 0.2303,
+          "rotation": 20.4,
+          "flip": true
+        }
+      ],
+      "recipe": "46325c6eec",
+      "width": 359,
+      "height": 442,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1285-46325c6eec-359w.webp",
+            "w": 359,
+            "bytes": 35864
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1285-46325c6eec-359w.avif",
+            "w": 359,
+            "bytes": 20183
+          }
+        ]
+      },
+      "alt": "Img 1285",
+      "title": "",
+      "layout": {
+        "size": 0.611,
+        "rotation": 1.67,
+        "jitter_x": -0.975,
+        "jitter_y": 0.506,
+        "seed": 1386937160
+      }
+    },
+    {
+      "id": "img-1286",
+      "source": "IMG_1286.JPG",
+      "source_hash": "c3ba4f9e8c14f27e",
+      "orientation": "portrait",
+      "photo_size": [
+        2184,
+        3072
+      ],
+      "frame": "portrait-frame-05",
+      "frame_hash": "f268885b0ed0a6ee",
+      "stickers": [
+        {
+          "id": "sticker-03-flower-base",
+          "cx": 0.3298,
+          "cy": 0.0826,
+          "width": 0.2907,
+          "rotation": 3.1,
+          "flip": false
+        }
+      ],
+      "recipe": "1c3eedf819",
+      "width": 474,
+      "height": 710,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/img-1286-1c3eedf819-360w.webp",
+            "w": 360,
+            "bytes": 57060
+          },
+          {
+            "src": "generated/img-1286-1c3eedf819-474w.webp",
+            "w": 474,
+            "bytes": 76410
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/img-1286-1c3eedf819-360w.avif",
+            "w": 360,
+            "bytes": 28493
+          },
+          {
+            "src": "generated/img-1286-1c3eedf819-474w.avif",
+            "w": 474,
+            "bytes": 37436
+          }
+        ]
+      },
+      "alt": "Img 1286",
+      "title": "",
+      "layout": {
+        "size": 0.243,
+        "rotation": -0.56,
+        "jitter_x": -0.115,
+        "jitter_y": 0.56,
+        "seed": 2118263257
+      }
+    },
+    {
+      "id": "photo-2026-11-09-16-01-34-3",
+      "source": "PHOTO-2026-11-09-16-01-34 3.jpg",
+      "source_hash": "d906f5e7b254eb0e",
+      "orientation": "landscape",
+      "photo_size": [
+        1280,
+        1093
+      ],
+      "frame": "landscape-frame-02",
+      "frame_hash": "aae22729ef1e62bc",
+      "stickers": [],
+      "recipe": "e98f3afbf1",
+      "width": 918,
+      "height": 653,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-360w.webp",
+            "w": 360,
+            "bytes": 22906
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-560w.webp",
+            "w": 560,
+            "bytes": 44538
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-800w.webp",
+            "w": 800,
+            "bytes": 74686
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-918w.webp",
+            "w": 918,
+            "bytes": 76548
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-360w.avif",
+            "w": 360,
+            "bytes": 11710
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-560w.avif",
+            "w": 560,
+            "bytes": 22822
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-800w.avif",
+            "w": 800,
+            "bytes": 40063
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-3-e98f3afbf1-918w.avif",
+            "w": 918,
+            "bytes": 43526
+          }
+        ]
+      },
+      "alt": "Photo 2026 11 09 16 01 34 3",
+      "title": "",
+      "layout": {
+        "size": 0.777,
+        "rotation": -0.13,
+        "jitter_x": -0.198,
+        "jitter_y": 0.868,
+        "seed": 455169645
+      }
+    },
+    {
+      "id": "photo-2026-11-09-16-01-34-18",
+      "source": "PHOTO-2026-11-09-16-01-34 18.jpg",
+      "source_hash": "da9ab7254a532d10",
+      "orientation": "portrait",
+      "photo_size": [
+        832,
+        1080
+      ],
+      "frame": "portrait-frame-04",
+      "frame_hash": "06e9213ba8dd5416",
+      "stickers": [],
+      "recipe": "3c9e9e0a14",
+      "width": 636,
+      "height": 763,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-360w.webp",
+            "w": 360,
+            "bytes": 39754
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-560w.webp",
+            "w": 560,
+            "bytes": 72450
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-636w.webp",
+            "w": 636,
+            "bytes": 75582
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-360w.avif",
+            "w": 360,
+            "bytes": 21259
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-560w.avif",
+            "w": 560,
+            "bytes": 39747
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-18-3c9e9e0a14-636w.avif",
+            "w": 636,
+            "bytes": 42481
+          }
+        ]
+      },
+      "alt": "Photo 2026 11 09 16 01 34 18",
+      "title": "",
+      "layout": {
+        "size": 0.563,
+        "rotation": -2.36,
+        "jitter_x": -0.355,
+        "jitter_y": 0.789,
+        "seed": 604279775
+      }
+    },
+    {
+      "id": "photo-2026-11-09-16-01-34-19",
+      "source": "PHOTO-2026-11-09-16-01-34 19.jpg",
+      "source_hash": "17660e58532cdec8",
+      "orientation": "portrait",
+      "photo_size": [
+        982,
+        1280
+      ],
+      "frame": "portrait-frame-05",
+      "frame_hash": "f268885b0ed0a6ee",
+      "stickers": [
+        {
+          "id": "sticker-04-gold-sun",
+          "cx": 0.8098,
+          "cy": 0.8684,
+          "width": 0.2699,
+          "rotation": -9.8,
+          "flip": true
+        }
+      ],
+      "recipe": "0eea0ac5dd",
+      "width": 474,
+      "height": 682,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-19-0eea0ac5dd-360w.webp",
+            "w": 360,
+            "bytes": 54834
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-19-0eea0ac5dd-474w.webp",
+            "w": 474,
+            "bytes": 72436
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-19-0eea0ac5dd-360w.avif",
+            "w": 360,
+            "bytes": 27466
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-19-0eea0ac5dd-474w.avif",
+            "w": 474,
+            "bytes": 35707
+          }
+        ]
+      },
+      "alt": "Photo 2026 11 09 16 01 34 19",
+      "title": "",
+      "layout": {
+        "size": 0.538,
+        "rotation": 2.35,
+        "jitter_x": -0.255,
+        "jitter_y": 0.757,
+        "seed": 1583851288
+      }
+    },
+    {
+      "id": "photo-2026-11-09-16-01-34-21",
+      "source": "PHOTO-2026-11-09-16-01-34 21.jpg",
+      "source_hash": "e62eee8074e419a5",
+      "orientation": "square",
+      "photo_size": [
+        1064,
+        1080
+      ],
+      "frame": "portrait-frame-07",
+      "frame_hash": "f2f856c743eb53cd",
+      "stickers": [
+        {
+          "id": "sticker-04-gold-sun",
+          "cx": 0.1385,
+          "cy": 0.8006,
+          "width": 0.2488,
+          "rotation": 8.7,
+          "flip": false
+        },
+        {
+          "id": "sticker-09-rome-block",
+          "cx": 0.9816,
+          "cy": 0.6088,
+          "width": 0.2484,
+          "rotation": -4.3,
+          "flip": false
+        }
+      ],
+      "recipe": "3ce9a203e5",
+      "width": 442,
+      "height": 481,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-21-3ce9a203e5-360w.webp",
+            "w": 360,
+            "bytes": 38052
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-21-3ce9a203e5-442w.webp",
+            "w": 442,
+            "bytes": 45534
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-21-3ce9a203e5-360w.avif",
+            "w": 360,
+            "bytes": 19643
+          },
+          {
+            "src": "generated/photo-2026-11-09-16-01-34-21-3ce9a203e5-442w.avif",
+            "w": 442,
+            "bytes": 24402
+          }
+        ]
+      },
+      "alt": "Photo 2026 11 09 16 01 34 21",
+      "title": "",
+      "layout": {
+        "size": 0.362,
+        "rotation": -0.27,
+        "jitter_x": -0.144,
+        "jitter_y": 0.823,
+        "seed": 1358821359
+      }
+    },
+    {
+      "id": "untitled-12-february-2024-2-34",
+      "source": "Untitled - 12 February 2024 2.34.JPG",
+      "source_hash": "f4ee35ea81357857",
+      "orientation": "portrait",
+      "photo_size": [
+        1668,
+        2388
+      ],
+      "frame": "portrait-frame-06",
+      "frame_hash": "be375e7afa9b9401",
+      "stickers": [
+        {
+          "id": "sticker-08-paper-rose",
+          "cx": 0.9364,
+          "cy": 0.6303,
+          "width": 0.2235,
+          "rotation": -2.4,
+          "flip": true
+        },
+        {
+          "id": "sticker-07-paper-pink-flower",
+          "cx": 0.1384,
+          "cy": 0.8888,
+          "width": 0.1986,
+          "rotation": 15.7,
+          "flip": false
+        }
+      ],
+      "recipe": "d871f8711a",
+      "width": 470,
+      "height": 464,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/untitled-12-february-2024-2-34-d871f8711a-360w.webp",
+            "w": 360,
+            "bytes": 42828
+          },
+          {
+            "src": "generated/untitled-12-february-2024-2-34-d871f8711a-470w.webp",
+            "w": 470,
+            "bytes": 59966
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/untitled-12-february-2024-2-34-d871f8711a-360w.avif",
+            "w": 360,
+            "bytes": 21234
+          },
+          {
+            "src": "generated/untitled-12-february-2024-2-34-d871f8711a-470w.avif",
+            "w": 470,
+            "bytes": 30577
+          }
+        ]
+      },
+      "alt": "Untitled   12 february 2024 2.34",
+      "title": "",
+      "layout": {
+        "size": 0.72,
+        "rotation": -0.31,
+        "jitter_x": -0.862,
+        "jitter_y": 0.923,
+        "seed": 697815001
+      }
+    },
+    {
+      "id": "untitled-24-november-2024-10-22",
+      "source": "Untitled - 24 November 2024 10.22.jpg",
+      "source_hash": "c3cdeaba4d8161e8",
+      "orientation": "square",
+      "photo_size": [
+        8192,
+        8192
+      ],
+      "frame": "portrait-frame-02",
+      "frame_hash": "83c83571f1b91eb5",
+      "stickers": [
+        {
+          "id": "sticker-06-paper-cotton-flower",
+          "cx": 0.9201,
+          "cy": 0.2887,
+          "width": 0.2864,
+          "rotation": 13.7,
+          "flip": true
+        }
+      ],
+      "recipe": "0f1f6690b0",
+      "width": 358,
+      "height": 410,
+      "sources": {
+        "webp": [
+          {
+            "src": "generated/untitled-24-november-2024-10-22-0f1f6690b0-358w.webp",
+            "w": 358,
+            "bytes": 39296
+          }
+        ],
+        "avif": [
+          {
+            "src": "generated/untitled-24-november-2024-10-22-0f1f6690b0-358w.avif",
+            "w": 358,
+            "bytes": 21126
+          }
+        ]
+      },
+      "alt": "Untitled   24 november 2024 10.22",
+      "title": "",
+      "layout": {
+        "size": 0.828,
+        "rotation": 1.25,
+        "jitter_x": -0.221,
+        "jitter_y": 0.29,
+        "seed": 526195200
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "file": "IMG_0135.heic",
+      "reason": "unsupported format (.heic)"
+    },
+    {
+      "file": "IMG_2490.heic",
+      "reason": "unsupported format (.heic)"
+    },
+    {
+      "file": "IMG_3170.heic",
+      "reason": "unsupported format (.heic)"
+    },
+    {
+      "file": "IMG_6542.heic",
+      "reason": "unsupported format (.heic)"
+    },
+    {
+      "file": "IMG_8807.heic",
+      "reason": "unsupported format (.heic)"
+    }
+  ]
+}
