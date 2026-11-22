@@ -1,4 +1,3 @@
-
 /* ==========================================================================
    KUNLE ITUNU ARCHIVE — GALLERY PAGE
    Shared styles are handled by common.css.
@@ -20,7 +19,7 @@
 
 
 
-   body .nav .nav__logo {
+body .nav .nav__logo {
   color: var(--ink-body);
 }
 
@@ -145,6 +144,7 @@ body {
     transform: translate3d(var(--curtain-to, 38.2%), 0, 0);
   }
 }
+
 /* ==========================================================================
    SCRAPBOOK
    Positions come from gallery.js.
@@ -193,9 +193,7 @@ body {
 .js .frame:not(.is-in) {
   opacity: 0;
   transform:
-    translate3d(0, 46px, 0)
-    rotate(var(--rot, 0deg))
-    scale(.985);
+    translate3d(0, 46px, 0) rotate(var(--rot, 0deg)) scale(.985);
   transition: none;
 }
 
@@ -207,17 +205,13 @@ body {
   from {
     opacity: 0;
     transform:
-      translate3d(0, 46px, 0)
-      rotate(var(--rot, 0deg))
-      scale(.985);
+      translate3d(0, 46px, 0) rotate(var(--rot, 0deg)) scale(.985);
   }
 
   to {
     opacity: 1;
     transform:
-      translate3d(0, 0, 0)
-      rotate(var(--rot, 0deg))
-      scale(1);
+      translate3d(0, 0, 0) rotate(var(--rot, 0deg)) scale(1);
   }
 }
 
@@ -275,6 +269,103 @@ body {
   line-height: 1;
 }
 
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(22, 24, 20, .56);               /* see-through dark veil ... */
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
+          backdrop-filter: blur(18px) saturate(115%);   /* ... that softly blurs the page behind */
+  color: #fff;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity .5s cubic-bezier(.2, .7, .2, 1);
+}
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox.is-open { opacity: 1; }
+.lightbox::backdrop { background: transparent; }
+
+.lightbox__figure {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: clamp(64px, 9vh, 96px) clamp(16px, 8vw, 120px);
+  touch-action: pan-y;                              /* horizontal swipes belong to the viewer */
+}
+.lightbox__picture { display: block; }
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - clamp(128px, 18vh, 192px));
+  max-height: calc(100dvh - clamp(128px, 18vh, 192px));
+  object-fit: contain;                              /* the whole painting, never cropped */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.lightbox.is-loading .lightbox__img { opacity: 0; }
+
+/* the painting glides in from the side it is coming from */
+@keyframes lb-from-right { from { opacity: 0; transform: translate3d(56px, 0, 0) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes lb-from-left  { from { opacity: 0; transform: translate3d(-56px, 0, 0) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes lb-rise       { from { opacity: 0; transform: translate3d(0, 22px, 0) scale(.96); }  to { opacity: 1; transform: none; } }
+.lightbox__img.anim-next { animation: lb-from-right .6s cubic-bezier(.2, .7, .2, 1) both; }
+.lightbox__img.anim-prev { animation: lb-from-left  .6s cubic-bezier(.2, .7, .2, 1) both; }
+.lightbox__img.anim-open { animation: lb-rise       .75s cubic-bezier(.2, .7, .2, 1) both; }
+
+/* frosted-glass buttons, in the spirit of the nav pill */
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, .13);
+  border: 1px solid rgba(255, 255, 255, .34);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 6px 20px rgba(0, 0, 0, .18);
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease, opacity .25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lightbox__btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lightbox__btn:hover { background: rgba(255, 255, 255, .24); }
+.lightbox__btn:active { transform: scale(.94); }
+.lightbox__btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.lightbox__close { top: max(20px, env(safe-area-inset-top)); right: max(20px, env(safe-area-inset-right)); }
+.lightbox__nav { top: 50%; margin-top: -26px; }
+.lightbox__nav--prev { left: max(20px, env(safe-area-inset-left)); }
+.lightbox__nav--next { right: max(20px, env(safe-area-inset-right)); }
+.lightbox__nav--prev:hover { transform: translateX(-3px); }
+.lightbox__nav--next:hover { transform: translateX(3px); }
+.lightbox.is-single .lightbox__nav, .lightbox.is-single .lightbox__count { display: none; }
+.lightbox__count {
+  position: absolute;
+  left: 50%;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: .08em;
+  color: rgba(255, 255, 255, .82);
+  font-variant-numeric: tabular-nums;
+}
+
 
 /* ==========================================================================
    REDUCED MOTION
@@ -284,7 +375,8 @@ body {
   html {
     scroll-behavior: auto;
   }
-
+  .lightbox, .lightbox__btn { transition: none; }
+  .lightbox__img.anim-next, .lightbox__img.anim-prev, .lightbox__img.anim-open { animation: none; }
   .js .hero__curtain {
     animation: none;
     transform: translate3d(0, 0, 0);
@@ -346,15 +438,25 @@ body {
     line-height: 1.6;
   }
 
-    .hero__curtain {
+  .hero__curtain {
     --curtain-to: 42%;
   }
 
-.hero__ivy {
-  z-index: 3;
-  width: calc(440 * var(--u));
-  height: calc(482 * var(--u) * 1.45);
-  object-fit: fill;
-  object-position: top;
-}
+  .hero__ivy {
+    z-index: 3;
+    width: calc(440 * var(--u));
+    height: calc(482 * var(--u) * 1.45);
+    object-fit: fill;
+    object-position: top;
+  }
+
+    .lightbox__btn { width: 46px; height: 46px; }
+  .lightbox__btn svg { width: 20px; height: 20px; }
+  .lightbox__figure { padding: 74px 10px 96px; }
+  .lightbox__img { max-height: calc(100dvh - 170px); }
+  /* thumbs reach the arrows more easily at the bottom corners */
+  .lightbox__nav { top: auto; bottom: max(18px, env(safe-area-inset-bottom)); margin-top: 0; }
+  .lightbox__nav--prev { left: 18px; }
+  .lightbox__nav--next { right: 18px; }
+  .lightbox__count { bottom: max(32px, calc(env(safe-area-inset-bottom) + 14px)); }
 }

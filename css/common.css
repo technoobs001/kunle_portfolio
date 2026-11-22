@@ -8,6 +8,7 @@
 @font-face { font-family: "Cormorant Infant"; font-weight: 600; font-style: normal; font-display: swap; src: url("../fonts/CormorantInfant-Regular.woff2") format("woff2"); }
 
 :root {
+   --slide-dx: min(28vw, 480px); 
   --cream: #f4f1e8;
   --ink: #111;
   --sage: #657a50;

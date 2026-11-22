@@ -160,6 +160,10 @@
       var fig = rebuild ? document.createElement('figure') : existing[i];
       if (rebuild) {
         fig.className = 'frame';
+        fig.tabIndex = 0;
+        fig.setAttribute('role', 'button');
+        fig.setAttribute('aria-label', 'View larger: ' + (it.alt || 'painting'));
+        fig.dataset.index = i;
         var pic = document.createElement('picture');
         ['avif', 'webp'].forEach(function (fmt) {
           if (it.sources && it.sources[fmt] && it.sources[fmt].length) {
@@ -193,6 +197,133 @@
       fig.querySelector('img').sizes = sizes;
     });
   }
+    var lb = document.getElementById('lightbox');
+  var viewer = null;
+
+  function setupLightbox() {
+    if (viewer || !lb || typeof lb.showModal !== 'function') return;
+    var picture = lb.querySelector('.lightbox__picture');
+    var srcAvif = picture.querySelector('source[type="image/avif"]');
+    var srcWebp = picture.querySelector('source[type="image/webp"]');
+    var img = lb.querySelector('.lightbox__img');
+    var count = lb.querySelector('.lightbox__count');
+    var prevBtn = lb.querySelector('.lightbox__nav--prev');
+    var nextBtn = lb.querySelector('.lightbox__nav--next');
+    var closeBtn = lb.querySelector('.lightbox__close');
+    var current = -1, closing = false, token = 0, opener = null;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // hidden picture used to warm the cache for the neighbouring paintings
+    var warm = document.createElement('div');
+    warm.setAttribute('aria-hidden', 'true');
+    warm.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    document.body.appendChild(warm);
+
+    function fill(it, dest) {                         // dest = {avif, webp, img}
+      var S = it.sources || {};
+      var sizes = '(max-width: 700px) 96vw, 80vw';
+      if (S.avif && S.avif.length) { dest.avif.srcset = srcset(S.avif, base); dest.avif.sizes = sizes; } else dest.avif.removeAttribute('srcset');
+      dest.webp.srcset = srcset(S.webp, base); dest.webp.sizes = sizes;
+      var big = S.webp[S.webp.length - 1];
+      dest.img.src = base + big.src;                   // largest version as the fallback
+      dest.img.sizes = sizes;
+    }
+
+    function prefetch(i) {
+      var it = items[(i + items.length) % items.length];
+      var pic = document.createElement('picture');
+      var a = document.createElement('source'), w = document.createElement('source'), im = document.createElement('img');
+      a.type = 'image/avif'; w.type = 'image/webp';
+      pic.appendChild(a); pic.appendChild(w); pic.appendChild(im);
+      fill(it, { avif: a, webp: w, img: im });
+      warm.textContent = '';
+      warm.appendChild(pic);
+    }
+
+    function wrap(i) { return (i + items.length) % items.length; }
+
+    function show(i, how) {                            // how: open | next | prev
+      var my = ++token;
+      current = wrap(i);
+      var it = items[current];
+      lb.classList.add('is-loading');
+      img.classList.remove('anim-open', 'anim-next', 'anim-prev');
+      fill(it, { avif: srcAvif, webp: srcWebp, img: img });
+      img.alt = it.alt || '';
+      count.textContent = (current + 1) + ' / ' + items.length;
+      var ready = img.decode ? img.decode().catch(function () {}) : new Promise(function (r) { img.onload = r; });
+      ready.then(function () {
+        if (my !== token) return;                      // a newer request superseded this one
+        lb.classList.remove('is-loading');
+        if (!reduce) { void img.offsetWidth; img.classList.add('anim-' + how); }
+        prefetch(current + 1);
+        setTimeout(function () { if (my === token) prefetch(current - 1); }, 700);
+      });
+    }
+
+    function open(i, from) {
+      if (lb.open) return;
+      opener = from || null;
+      closing = false;
+      lb.classList.toggle('is-single', items.length < 2);
+      lb.showModal();
+      show(i, 'open');
+      requestAnimationFrame(function () { requestAnimationFrame(function () { lb.classList.add('is-open'); }); });
+      closeBtn.focus({ preventScroll: true });
+    }
+
+    function close() {
+      if (!lb.open || closing) return;
+      closing = true;
+      lb.classList.remove('is-open');
+      var done = function () {
+        if (lb.open) lb.close();
+        closing = false;
+        if (opener && opener.focus) opener.focus({ preventScroll: true });
+      };
+      if (reduce) done(); else setTimeout(done, 480);
+    }
+
+    function step(d) { if (items.length > 1 && lb.open && !closing) show(current + d, d > 0 ? 'next' : 'prev'); }
+
+    prevBtn.addEventListener('click', function () { step(-1); });
+    nextBtn.addEventListener('click', function () { step(1); });
+    closeBtn.addEventListener('click', close);
+    lb.addEventListener('cancel', function (e) { e.preventDefault(); close(); });          // Esc
+    lb.addEventListener('click', function (e) {                                            // click on the veil
+      if (e.target === lb || e.target.classList.contains('lightbox__figure')) close();
+    });
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    });
+    // keep the page behind from scrolling while the viewer is open
+    ['wheel', 'touchmove'].forEach(function (ev) {
+      lb.addEventListener(ev, function (e) { e.preventDefault(); }, { passive: false });
+    });
+    // swipe left / right
+    var sx = null, sy = 0;
+    lb.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') { sx = e.clientX; sy = e.clientY; } });
+    lb.addEventListener('pointerup', function (e) {
+      if (sx === null) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) step(dx < 0 ? 1 : -1);
+    });
+    lb.addEventListener('pointercancel', function () { sx = null; });
+
+    // open from the gallery (click, Enter or Space)
+    function figureOf(t) { return t.closest ? t.closest('.frame') : null; }
+stage.addEventListener('click', function (e) {
+  var f = figureOf(e.target);
+  if (f) open(+f.dataset.index, f);
+});
+    stage.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var f = figureOf(e.target); if (f) { e.preventDefault(); open(+f.dataset.index, f); }
+    });
+    viewer = { open: open, close: close };
+  }
+
 
   function showNote(text) { note.textContent = text; note.hidden = false; }
 
@@ -207,6 +338,8 @@
     }
     items = mixOrder(items);
     build();
+        setupLightbox();
+
     var t;
     (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () {
       clearTimeout(t); t = setTimeout(build, 60);

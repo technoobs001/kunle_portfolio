@@ -75,6 +75,25 @@
     <p>Kunle Itunu</p>
   </footer>
 
+    <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+    <button class="lightbox__btn lightbox__close" type="button" aria-label="Close image viewer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <button class="lightbox__btn lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg>
+    </button>
+    <figure class="lightbox__figure">
+      <picture class="lightbox__picture">
+        <source type="image/avif"><source type="image/webp">
+        <img class="lightbox__img" alt="" decoding="async">
+      </picture>
+    </figure>
+    <button class="lightbox__btn lightbox__nav lightbox__nav--next" type="button" aria-label="Next image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg>
+    </button>
+    <p class="lightbox__count" aria-live="polite"></p>
+  </dialog>
+
   <script src="js/gallery.js" defer></script>
 </body>
 </html>
