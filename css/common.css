@@ -1,3 +1,4 @@
+@font-face { font-family: "Labrada"; font-weight: 500; font-style: normal; font-display: swap; src: url("../fonts/Labrada-Medium.woff2") format("woff2"); }
 @font-face { font-family: "KyivType Sans"; font-weight: 200; font-style: normal; font-display: swap; src: url("../fonts/KyivTypeSans-Thin.woff2") format("woff2"); }
 @font-face { font-family: "KyivType Sans"; font-weight: 300; font-style: normal; font-display: swap; src: url("../fonts/KyivTypeSans-Light.woff2") format("woff2"); }
 @font-face { font-family: "KyivType Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/KyivTypeSans-Medium.woff2") format("woff2"); }
@@ -15,7 +16,7 @@
 --glass: rgba(101, 122, 80, 0.2);
   --glass-shadow: 0px 1px 3.8px 0px rgba(0, 0, 0, 0.25);
 
---font-sans: "KyivType Sans", "Lexend", "Segoe UI", system-ui, sans-serif;
+--font-sans: "KyivType Sans", "Labrada", "Segoe UI", system-ui, sans-serif;
 --font-serif: "Cormorant Infant", "Cormorant Garamond", "Times New Roman", serif;
 --active-nav-pill_text:#343A32;
 --text:#151C13;

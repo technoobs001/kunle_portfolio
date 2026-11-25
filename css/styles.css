@@ -130,12 +130,60 @@
 .it--chain3    { --x: 927; --y: 1326.3; --r: -27.81deg; --s: .824; z-index: 7; }
 /* notes */
 .notes__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.it--tape   { --w: 629; --y: 128.8; z-index: 6; }
-.it--tape1  { --x: 0; }
-.it--tape2  { --x: 430; }
-.it--tape3  { --x: 860; }
+/* ---------- Paper notes ---------- */
+
+.it--tape {
+  --w: 629;
+  --y: 128.8;
+  z-index: 6;
+
+  aspect-ratio: 629 / 387;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.it--tape > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  z-index: 0;
+}
+
+.tape__text {
+  position: relative;
+  z-index: 1;
+  font-family: "Labrada", serif;
+  font-size: calc(24 * var(--u));
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  transform: translateY(12px);
+
+  text-align: center;
+  white-space: nowrap;
+}
+
+.it--tape1 {
+  --x: 0;
+}
+
+.it--tape2 {
+  --x: 430;
+  transform: rotate(-5.55deg);
+  transform-origin: center;
+}
+
+.it--tape3 {
+  --x: 860;
+  transform: rotate(7.19deg);
+  transform-origin: center;
+}
 .it--rose    { --x: 59;   --y: 271; --w: 167; z-index: 7; }
-.it--watch   { --x: 536;  --y: 232; --w: 142; z-index: 7; }
+.it--watch   { --x: 536;  --y: 225; --w: 142; z-index: 7; }
 .it--wflower { --x: 1133; --y: 56;  --w: 307; z-index: 7; }
 /* tail */
 .it--chain4 { --x: 376; --y: -81; z-index: 2; }
@@ -298,9 +346,3 @@
     .nav__pill a { transition: none; }
 
 }
-/* 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .it--arm1, .it--arm2, .it--sun { animation: none; opacity: 1; transform: none; }
-  .nav__pill a { transition: none; }
-} */
