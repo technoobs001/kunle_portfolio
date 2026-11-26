@@ -55,10 +55,11 @@
     // phones and tablets: the same collage as desktop, scaled with the screen, with slightly
     // larger frames so that two across is the norm (as in the mobile reference)
     narrow: { W: 1440, margin: 40, sub: 6, gutter: 12, bottom: 30, fixed: true,
-              range: { portrait: [372, 600], square: [410, 565], landscape: [565, 830] } }
+              range: { portrait: [372, 560], square: [410, 540], landscape: [520, 670] } }
   };
   var mq = window.matchMedia('(min-width: 1000px)');
   var items = [];
+  var design = { canvas_width: 1440, stage_top: 0 };     // from the manifest (see gallery/design.json)
 
   function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -89,10 +90,34 @@
   }
 
   function computeLayout(list, cfg) {
-    var sub = (!cfg.fixed && list.length < 3) ? Math.max(2, list.length * 2) : cfg.sub;   // very few photos: fewer, larger columns
+    // 1) frames pinned by the design layout keep their exact position and size
+    var pinnedBottom = 0, havePins = false, scaleX = cfg.W / (design.canvas_width || cfg.W);
+    var out = new Array(list.length);
+    var free = [], freeIdx = [];
+    list.forEach(function (it, i) {
+      var pin = it.layout && it.layout.pin;
+      if (pin) {
+        var w = pin.w * scaleX, h = w / (it.width / it.height);
+        var y = (pin.y - (design.stage_top || 0)) * scaleX;
+        out[i] = { x: pin.x * scaleX, y: y, w: w, h: h, rot: 0 };
+        pinnedBottom = Math.max(pinnedBottom, y + h);
+        havePins = true;
+      } else { free.push(it); freeIdx.push(i); }
+    });
+    // 2) every other photograph is packed into the space below the design block
+    var startY = havePins ? pinnedBottom + 70 : 0;
+    var rest = packFree(free, cfg, startY);
+    freeIdx.forEach(function (idx, k) { out[idx] = rest.boxes[k]; });
+    var bottom = Math.max(pinnedBottom, rest.bottom || 0);
+    return { boxes: out, height: bottom + cfg.bottom };
+  }
+
+  function packFree(list, cfg, startY) {
+    if (!list.length) return { boxes: [], bottom: startY };
+    var sub = (!cfg.fixed && list.length < 3) ? Math.max(2, list.length * 2) : cfg.sub;
     var subW = (cfg.W - 2 * cfg.margin - (sub - 1) * cfg.gutter) / sub;
     var colY = [];
-    for (var i = 0; i < sub; i++) colY.push(0);
+    for (var i = 0; i < sub; i++) colY.push(startY);
     var out = [];
 
     list.forEach(function (it) {
@@ -113,8 +138,8 @@
           var y = 0, waste = 0, k;
           for (k = c; k < c + span; k++) y = Math.max(y, colY[k]);
           for (k = c; k < c + span; k++) waste += y - colY[k];
-          var flushL = c === 0 || (colY[c - 1] > 0 && colY[c - 1] >= y - 1);
-          var flushR = c + span === sub || (colY[c + span] > 0 && colY[c + span] >= y - 1);
+          var flushL = c === 0 || (colY[c - 1] > startY && colY[c - 1] >= y - 1);
+          var flushR = c + span === sub || (colY[c + span] > startY && colY[c + span] >= y - 1);
           if (pass === 0 && !(flushL || flushR)) continue;          // pass 1: any spot at all
           var noise = hash01(L.seed || 1, c) * 70;                   // gentle variety, identical every visit
           var score = y + (waste / span) * 0.55 + noise;
@@ -125,12 +150,12 @@
       var jx = L.jitter_x == null ? 0 : L.jitter_x;                  // -1..1
       var t = (jx + 1) / 2;                                          // 0..1
       var x = cfg.margin + best * (subW + cfg.gutter) + slack * (bestSide === 'l' ? t * 0.35 : 1 - t * 0.35);
-      var gap = bestY === 0 ? 0 : 14 + 46 * (L.jitter_y == null ? 0.5 : L.jitter_y);
+      var gap = bestY === startY ? 0 : 14 + 46 * (L.jitter_y == null ? 0.5 : L.jitter_y);
       var yTop = bestY + gap;
       for (var m = best; m < best + span; m++) colY[m] = yTop + h + 4;
       out.push({ x: x, y: yTop, w: w, h: h, rot: L.rotation || 0 });
     });
-    return { boxes: out, height: Math.max.apply(null, colY) + cfg.bottom };
+    return { boxes: out, bottom: Math.max.apply(null, colY) };
   }
   function range(cfg, orientation) { return cfg.range[orientation] || cfg.range.portrait; }
   function clamp01(v) { return Math.max(0, Math.min(1, v)); }
@@ -197,7 +222,10 @@
       fig.querySelector('img').sizes = sizes;
     });
   }
-    var lb = document.getElementById('lightbox');
+
+
+  /* ---------- lightbox ---------------------------------------------------- */
+  var lb = document.getElementById('lightbox');
   var viewer = null;
 
   function setupLightbox() {
@@ -313,17 +341,15 @@
 
     // open from the gallery (click, Enter or Space)
     function figureOf(t) { return t.closest ? t.closest('.frame') : null; }
-stage.addEventListener('click', function (e) {
-  var f = figureOf(e.target);
-  if (f) open(+f.dataset.index, f);
-});
+    stage.addEventListener('click', function (e) {
+      var f = figureOf(e.target); if (f) open(+f.dataset.index, f);
+    });
     stage.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       var f = figureOf(e.target); if (f) { e.preventDefault(); open(+f.dataset.index, f); }
     });
     viewer = { open: open, close: close };
   }
-
 
   function showNote(text) { note.textContent = text; note.hidden = false; }
 
@@ -336,10 +362,14 @@ stage.addEventListener('click', function (e) {
       showNote('The archive is being prepared. Add photographs to gallery/images and run process_images.py.');
       return;
     }
-    items = mixOrder(items);
+    design = m.design || design;
+    // the design block first, in reading order (top to bottom, left to right); then the rest, mixed
+    var pinned = items.filter(function (it) { return it.layout && it.layout.pin; })
+      .sort(function (a, b) { return Math.round(a.layout.pin.y / 200) - Math.round(b.layout.pin.y / 200) || a.layout.pin.x - b.layout.pin.x; });
+    var others = mixOrder(items.filter(function (it) { return !(it.layout && it.layout.pin); }));
+    items = pinned.concat(others);
     build();
-        setupLightbox();
-
+    setupLightbox();
     var t;
     (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () {
       clearTimeout(t); t = setTimeout(build, 60);

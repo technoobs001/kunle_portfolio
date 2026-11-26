@@ -24,14 +24,26 @@ The script only does work that is needed. Photos that haven't changed are skippe
 | Variety | frames and stickers are chosen at random but **balanced**: the least-used ones are favoured, and the same frame is never used twice in a row when there is another choice |
 | Fit | the photo is scaled to *cover* the window (no stretching), clipped to the window shape (ovals included) and tucked under the frame edge |
 | Overlay | a soft light overlay (12 % warm white) sits above the photo and below the frame and stickers |
-| Stickers | 0 to 2 stickers are attached to the frame's rim, away from the photograph. They are baked into the image, so they never drift when a frame is rotated or moved on the page |
+| Stickers | At most **one** sticker per frame (about a third of frames get none). It rests on the frame itself, mostly inside its outline and away from the photograph. Stickers are baked into the image, so they never drift when a frame is rotated or moved on the page |
 | Shadow | a soft drop shadow is baked in |
 | Output | WebP and AVIF at several widths in `generated/`, named with a content hash |
 | Manifest | `manifest.json` (and `manifest.js`, a copy for opening the page from disk) |
 
 Choices are saved in the manifest, so **existing photos keep their frame, stickers and position** when you add more.
 
-**The ivy vine** (`stickers/sticker-10-vine.png`) is a *hanging* sticker: instead of sitting on the rim it drapes down from the top edge of the picture, like the design reference. It is used sparingly, at most once per frame. Any sticker whose file name contains `vine` or `ivy` behaves this way.
+**The ivy vine** (`stickers/sticker-10-vine.png`) is a *hanging* sticker: instead of sitting on the rim it drapes down from the top edge of the picture inside the frame, like the design reference, and counts as that frame's one sticker. It is used sparingly. Any sticker whose file name contains `vine` or `ivy` behaves this way.
+
+## The design layout (`design.json`)
+
+`design.json` pins photographs to the exact frame, sticker, crop and page position used in the design layouts (desktop and mobile share one artboard). `process_images.py` reads it: photographs listed in it always get exactly that look and position; every other photograph is handled at random, as described above, and is placed below the designed block. `DESIGN_MAPPING.md` lists the full photo-to-frame table.
+
+* To pin another photograph, copy an existing entry in `design.json`, change the file name, frame and `frame_box`, and run the script. To release a pin, delete its entry.
+* A painting that must appear in two frames needs two files; mark the copy with `"allow_duplicate": true`.
+* iPhone `.heic` photos are read directly if you run `pip install pillow-heif` once (otherwise the script tells you which files it skipped).
+
+## Viewing a painting full size
+
+Clicking (or tapping, or pressing Enter on) any framed painting opens it in a frosted full-screen viewer with **previous / next** buttons, a **close** button and a counter. Also: left/right arrow keys, Esc to close, swipe on touch screens, click on the veil to close. The viewer uses the largest generated size and needs no setup, so new photos get it automatically.
 
 ## Everyday options
 

@@ -1,0 +1,370 @@
+{
+ "_about": "Exact image-to-frame mapping taken from gallery_page_layout.png (desktop and mobile share the same artboard). Coordinates are in design units on a 1440-wide artboard. frame_box = [x, y, width] of the frame canvas; sticker center/width are in the same units; crop.zoom is relative to a plain cover-fit and crop.focus is [x, y] 0..1. A photo listed here is always framed exactly this way; photos not listed get random frames. The white frame in the layout is not among the frame files: it uses portrait-frame-05 until a file named portrait-frame-08-white.png is added to frames/ (then adjust frame_box for its size).",
+ "canvas_width": 1440,
+ "stage_top": 1355,
+ "items": {
+  "IMG_3170.jpg": {
+   "label": "Man in kente cloth (large frame, top left)",
+   "frame": "portrait-frame-01",
+   "frame_box": [
+    21,
+    1335,
+    667
+   ],
+   "stickers": [
+    {
+     "id": "sticker-07-paper-pink-flower",
+     "center": [
+      132,
+      2150
+     ],
+     "width": 200,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.019,
+    "focus": [
+     0.58,
+     0.576
+    ]
+   }
+  },
+  "IMG_1257.JPG": {
+   "label": "Lady in red (small frame, clover sticker)",
+   "frame": "portrait-frame-01",
+   "frame_box": [
+    721,
+    1379,
+    302
+   ],
+   "stickers": [
+    {
+     "id": "sticker-02-clover",
+     "center": [
+      905,
+      1422
+     ],
+     "width": 165,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.04,
+    "focus": [
+     0.515,
+     0.511
+    ]
+   }
+  },
+  "IMG_1283.JPG": {
+   "label": "Man smoking, green tones (gold oval, roses)",
+   "frame": "portrait-frame-02",
+   "frame_box": [
+    1058,
+    1391,
+    338
+   ],
+   "stickers": [
+    {
+     "id": "sticker-08-paper-rose",
+     "center": [
+      1320,
+      1728
+     ],
+     "width": 84,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.127,
+    "focus": [
+     0.528,
+     0.521
+    ]
+   }
+  },
+  "IMG_1260.JPG": {
+   "label": "Woman in golden field (landscape frame)",
+   "frame": "landscape-frame-02",
+   "frame_box": [
+    741,
+    1852,
+    634
+   ],
+   "stickers": [],
+   "crop": {
+    "zoom": 0.995,
+    "focus": [
+     0.5,
+     0.49
+    ]
+   }
+  },
+  "IMG_1285.JPG": {
+   "label": "Young man with locs (red oval)",
+   "frame": "portrait-frame-03",
+   "frame_box": [
+    532,
+    2295,
+    307
+   ],
+   "stickers": [],
+   "crop": {
+    "zoom": 1.026,
+    "focus": [
+     0.177,
+     0.257
+    ]
+   }
+  },
+  "IMG_2490.jpg": {
+   "label": "Woman with doves (green rounded frame, sun)",
+   "frame": "landscape-frame-01",
+   "frame_box": [
+    76,
+    2338,
+    420
+   ],
+   "stickers": [
+    {
+     "id": "sticker-04-gold-sun",
+     "center": [
+      460,
+      2610
+     ],
+     "width": 167,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.062,
+    "focus": [
+     0.546,
+     0.493
+    ]
+   }
+  },
+  "IMG_1255.JPG": {
+   "label": "Girl with red bow (large bronze oval)",
+   "frame": "portrait-frame-04",
+   "frame_box": [
+    836,
+    2330,
+    594
+   ],
+   "stickers": [],
+   "crop": {
+    "zoom": 1.045,
+    "focus": [
+     0.494,
+     0.541
+    ]
+   }
+  },
+  "IMG_1254.JPG": {
+   "label": "Lady in green (gold oval, pearls)",
+   "frame": "portrait-frame-05",
+   "frame_box": [
+    23,
+    2680,
+    447
+   ],
+   "stickers": [
+    {
+     "id": "sticker-01-chain",
+     "center": [
+      246,
+      3219
+     ],
+     "width": 168,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.07,
+    "focus": [
+     0.525,
+     0.761
+    ]
+   }
+  },
+  "IMG_1257-design-copy.JPG": {
+   "label": "Lady in red, second use (small frame, Roman column)",
+   "frame": "portrait-frame-01",
+   "frame_box": [
+    515,
+    2801,
+    302
+   ],
+   "stickers": [
+    {
+     "id": "sticker-09-rome-block",
+     "center": [
+      589,
+      3171
+     ],
+     "width": 57,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.04,
+    "focus": [
+     0.515,
+     0.51
+    ]
+   },
+   "allow_duplicate": true
+  },
+  "IMG_1279.JPG": {
+   "label": "Woman with afro (white ornate oval, moon)",
+   "frame": [
+    "portrait-frame-08-white",
+    "portrait-frame-05"
+   ],
+   "frame_box": [
+    976,
+    3104,
+    424
+   ],
+   "stickers": [
+    {
+     "id": "sticker-05-moon",
+     "center": [
+      1173,
+      3638
+     ],
+     "width": 114,
+     "rotation": 0,
+     "flip": false
+    }
+   ]
+  },
+  "IMG_1258.JPG": {
+   "label": "Woman with long braid (large landscape, ivy)",
+   "frame": "landscape-frame-02",
+   "frame_box": [
+    23,
+    3385,
+    906
+   ],
+   "stickers": [
+    {
+     "id": "sticker-10-vine",
+     "center": [
+      212,
+      3709
+     ],
+     "width": 221,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.027,
+    "focus": [
+     0.524,
+     0.493
+    ]
+   }
+  },
+  "IMG_6542.jpg": {
+   "label": "Wedding couple (gold frame, right)",
+   "frame": "portrait-frame-06",
+   "frame_box": [
+    965,
+    3737,
+    449
+   ],
+   "stickers": [],
+   "crop": {
+    "zoom": 1.17,
+    "focus": [
+     0.599,
+     0.625
+    ]
+   }
+  },
+  "IMG_3DCD4478485B-1.jpeg": {
+   "label": "Woman in veil (green oval, cotton flower)",
+   "frame": "portrait-frame-07",
+   "frame_box": [
+    65,
+    4066,
+    376
+   ],
+   "stickers": [
+    {
+     "id": "sticker-06-paper-cotton-flower",
+     "center": [
+      148,
+      4430
+     ],
+     "width": 143,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.04,
+    "focus": [
+     0.418,
+     0.304
+    ]
+   }
+  },
+  "IMG_1262.JPG": {
+   "label": "Two men lighting a cigarette (large landscape, urn of flowers)",
+   "frame": "landscape-frame-02",
+   "frame_box": [
+    524,
+    4225,
+    906
+   ],
+   "stickers": [
+    {
+     "id": "sticker-03-flower-base",
+     "center": [
+      1312,
+      4719
+     ],
+     "width": 183,
+     "rotation": 0,
+     "flip": false
+    }
+   ],
+   "crop": {
+    "zoom": 1.063,
+    "focus": [
+     0.522,
+     0.744
+    ]
+   }
+  },
+  "IMG_6542-design-copy.jpg": {
+   "label": "Wedding couple, second use (gold frame, bottom left)",
+   "frame": "portrait-frame-06",
+   "frame_box": [
+    28,
+    4611,
+    449
+   ],
+   "stickers": [],
+   "crop": {
+    "zoom": 1.17,
+    "focus": [
+     0.599,
+     0.625
+    ]
+   },
+   "allow_duplicate": true
+  }
+ }
+}

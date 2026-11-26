@@ -23,6 +23,10 @@ their look when you add new ones.
 
 Requirements:  pip install pillow numpy      (Pillow >= 10 with WebP; AVIF optional)
 
+Design mapping (optional): gallery/design.json pins chosen photographs to exact frames,
+stickers, crops and page positions (used to reproduce the design layouts). Photographs not
+listed there are handled exactly as described above.
+
 Useful options:
     --seed N         use a specific random seed (only matters for NEW photos)
     --reshuffle      throw away saved frame/sticker choices and pick again
@@ -50,13 +54,20 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs Pillow and NumPy:  pip install pillow numpy")
 
+try:                                   # optional: iPhone .heic/.heif photographs
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+    HEIC_OK = True
+except ImportError:                    # pragma: no cover
+    HEIC_OK = False
+
 # ----------------------------------------------------------------------------
 # Settings (change these to tune the look; changing them re-renders images)
 # ----------------------------------------------------------------------------
 RENDER_VERSION = 1                 # bump to force a re-render of everything
 
-OVERLAY_COLOR = (252, 247, 238)    # soft warm white laid over every photograph
-OVERLAY_OPACITY = 0.12             # "subtle light overlay with low opacity"
+# OVERLAY_COLOR = (0, 0, 0)
+# OVERLAY_OPACITY = 0.0 
 
 SHADOW_COLOR = (62, 52, 40)        # soft shadow baked in, like the reference
 SHADOW_OPACITY = 0.34
@@ -75,10 +86,12 @@ AVIF_SPEED = 7                     # 0 = slowest/best ... 10 = fastest
 MAX_ASPECT_MISMATCH = math.log(1.40)   # crop at most ~29 % off one side
 SQUARE_RANGE = (0.91, 1.10)            # aspect ratios treated as "square"
 
-STICKER_CHANCES = {0: 0.15, 1: 0.55, 2: 0.30}   # how many stickers per frame
+STICKER_CHANCES = {0: 0.30, 1: 0.70}   # one sticker per frame at most; about a third of frames have none
 STICKER_WIDTH_RANGE = (0.20, 0.31)    # sticker width as a fraction of the frame
 STICKER_MAX_UPSCALE = 1.6
 STICKER_MAX_WINDOW_OVERLAP = 0.04     # keep stickers off the photograph
+STICKER_MIN_FRAME_COVER = 0.45        # at least this share of a sticker must rest on the frame itself
+STICKER_MAX_OUTSIDE = 0.30            # at most this share may stick out past the frame's outline
 STICKER_ROTATION = 22                 # degrees, +/-
 
 # "Hanging" stickers (e.g. the ivy vine) drape down from the top edge of the frame and may
@@ -99,6 +112,7 @@ STICKERS_DIR = ROOT / "stickers"
 OUT_DIR = ROOT / "generated"
 MANIFEST = ROOT / "manifest.json"
 MANIFEST_JS = ROOT / "manifest.js"      # same data, for opening the page from file://
+DESIGN = ROOT / "design.json"            # optional: exact photo -> frame/sticker/position mapping
 CAPTIONS = IMAGES_DIR / "captions.json"  # optional: {"file.jpg": {"alt": "...", "title": "..."}}
 
 # ----------------------------------------------------------------------------
@@ -145,7 +159,7 @@ def orientation_of(aspect: float) -> str:
 
 
 def config_digest() -> str:
-    cfg = dict(v=RENDER_VERSION, oc=OVERLAY_COLOR, oo=OVERLAY_OPACITY, sc=SHADOW_COLOR, so=SHADOW_OPACITY,
+    cfg = dict(v=RENDER_VERSION, sc=SHADOW_COLOR, so=SHADOW_OPACITY,
                sb=SHADOW_BLUR, sf=SHADOW_OFFSET, up=MAX_PHOTO_UPSCALE, mw=MAX_MASTER_WIDTH, tw=TARGET_WIDTHS,
                mv=MIN_VARIANT_WIDTH, wq=WEBP_QUALITY, aq=AVIF_QUALITY)
     return sha(json.dumps(cfg, sort_keys=True).encode(), 10)
@@ -367,7 +381,9 @@ def place_hanging(rng, frame: Frame, sid: str, simg: Image.Image, fw: int, fh: i
     # find where the window's top edge is at this x (ovals curve away)
     col = int(min(max(cx, wx0), wx1 - 1))
     ys = np.where(frame.window_mask[:, col])[0]
+    ax0, ay0, ax1, ay1 = frame.alpha_bbox
     top = (ys.min() if len(ys) else wy0) - target_h * 0.10     # start slightly above the opening
+    top = max(top, ay0 + (wy0 - ay0) * 0.35)                   # ...but never above the frame itself
     cy = top + target_h / 2
     return {"id": sid, "cx": round(cx / fw, 4), "cy": round(cy / fh, 4), "width": round(tw / fw, 4),
             "rotation": round(rot, 1), "flip": flip, "crop": list(bb)}
@@ -407,26 +423,35 @@ def place_stickers(rng, frame: Frame, sticker_ids: list, stickers: dict):
         s_img = s_img.rotate(rot, expand=True, resample=Image.BILINEAR)
         s_alpha = np.array(s_img)[:, :, 3] > 100
         sh, sw = s_alpha.shape
+        fmask = fimg > 128
+        s_area = max(1, int(s_alpha.sum()))
         cands = []
-        for pt in rim:
-            if any(abs(math.atan2(math.sin(pt["angle"] - a), math.cos(pt["angle"] - a))) < 0.6 for a in used_angles):
-                continue
-            for inward in (-0.10, 0.00, 0.10, 0.22, 0.34):
-                cx = pt["x"] - pt["dx"] * sw * inward
-                cy = pt["y"] - pt["dy"] * sh * inward
-                x0, y0 = int(cx - sw / 2), int(cy - sh / 2)
-                # overlap with the photograph window
-                ox0, oy0, ox1, oy1 = max(x0, 0), max(y0, 0), min(x0 + sw, fw), min(y0 + sh, fh)
-                if ox1 <= ox0 or oy1 <= oy0:
-                    ov = 0.0
-                else:
+        # strict first; if the frame is too slim for that, relax a little (never past the outline)
+        for cover_min, win_max, out_max in ((STICKER_MIN_FRAME_COVER, STICKER_MAX_WINDOW_OVERLAP, STICKER_MAX_OUTSIDE),
+                                            (0.25, 0.10, 0.40), (0.12, 0.16, 0.50)):
+            for pt in rim:
+                if any(abs(math.atan2(math.sin(pt["angle"] - a), math.cos(pt["angle"] - a))) < 0.6 for a in used_angles):
+                    continue
+                for inward in (0.05, 0.15, 0.25, 0.35, 0.45):
+                    cx = pt["x"] - pt["dx"] * sw * inward
+                    cy = pt["y"] - pt["dy"] * sh * inward
+                    x0, y0 = int(cx - sw / 2), int(cy - sh / 2)
+                    ox0, oy0, ox1, oy1 = max(x0, 0), max(y0, 0), min(x0 + sw, fw), min(y0 + sh, fh)
+                    if ox1 <= ox0 or oy1 <= oy0:
+                        continue
                     sub = s_alpha[oy0 - y0:oy1 - y0, ox0 - x0:ox1 - x0]
-                    ov = float((sub & wmask[oy0:oy1, ox0:ox1]).sum()) / max(1, s_alpha.sum())
-                if ov <= STICKER_MAX_WINDOW_OVERLAP:
-                    # favour lower corners and the top-right, like the reference
-                    ang = pt["angle"]
-                    pref = 1.0 + 1.2 * max(0, math.sin(ang)) + 0.6 * max(0, math.cos(ang) * -math.sin(ang))
-                    cands.append((pref * (1.0 - ov), pt["angle"], cx, cy))
+                    ov = float((sub & wmask[oy0:oy1, ox0:ox1]).sum()) / s_area          # over the photograph
+                    cover = float((sub & fmask[oy0:oy1, ox0:ox1]).sum()) / s_area       # resting on the frame
+                    bx0, by0, bx1, by1 = max(ox0, ax0), max(oy0, ay0), min(ox1, ax1), min(oy1, ay1)
+                    inside = 0.0
+                    if bx1 > bx0 and by1 > by0:
+                        inside = float(s_alpha[by0 - y0:by1 - y0, bx0 - x0:bx1 - x0].sum()) / s_area
+                    if ov <= win_max and cover >= cover_min and (1.0 - inside) <= out_max:
+                        ang = pt["angle"]
+                        pref = 1.0 + 1.2 * max(0, math.sin(ang)) + 0.6 * max(0, math.cos(ang) * -math.sin(ang))
+                        cands.append((pref * (1.0 - ov) * (0.5 + cover), pt["angle"], cx, cy))
+            if cands:
+                break
         if not cands:
             continue
         pick = pick_weighted(rng, cands, [c[0] for c in cands])
@@ -454,19 +479,22 @@ def load_photo(path: Path) -> Image.Image:
         return im.copy()
 
 
-def cover_fit(photo: Image.Image, size: tuple, focus_y: float) -> Image.Image:
+def cover_fit(photo: Image.Image, size: tuple, focus_y: float, focus_x: float = 0.5, zoom: float = 1.0) -> Image.Image:
     tw, th = size
     pw, ph = photo.size
-    s = max(tw / pw, th / ph)
+    s = max(tw / pw, th / ph) * max(1.0, zoom)
     nw, nh = max(tw, round(pw * s)), max(th, round(ph * s))
     resized = photo.resize((nw, nh), Image.LANCZOS)
-    left = (nw - tw) // 2
+    left = int((nw - tw) * focus_x)
     top = int((nh - th) * focus_y)
     return resized.crop((left, top, left + tw, top + th))
 
 
-def render(photo: Image.Image, frame: Frame, sticker_plan: list, stickers: dict):
-    """Returns the final RGBA composite (trimmed) at its master size."""
+def render(photo: Image.Image, frame: Frame, sticker_plan: list, stickers: dict, crop: dict | None = None,
+           want_meta: bool = False):
+    """Returns the final RGBA composite (trimmed) at its master size.
+    With want_meta=True returns (image, meta) where meta records the master scale and where the
+    trimmed image starts relative to the frame canvas (used to place pinned frames exactly)."""
     fw0, fh0 = frame.size
     x0, y0, x1, y1 = frame.window_bbox
     win_w, win_h = x1 - x0, y1 - y0
@@ -481,12 +509,13 @@ def render(photo: Image.Image, frame: Frame, sticker_plan: list, stickers: dict)
     wx0, wy0 = round(x0 * s), round(y0 * s)
     ww, wh = max(2, round(win_w * s)), max(2, round(win_h * s))
     focus_y = 0.5 if photo.width >= photo.height else 0.36        # keep faces in portraits
-    art = cover_fit(photo, (ww, wh), focus_y)
+    if crop:                                                      # exact crop taken from the design
+        art = cover_fit(photo, (ww, wh), crop["focus"][1], crop["focus"][0], crop.get("zoom", 1.0))
+    else:
+        art = cover_fit(photo, (ww, wh), focus_y)
     layer = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
     layer.paste(art.convert("RGBA"), (wx0, wy0))
-    # soft light overlay: above the photo, below the frame and the stickers
-    ov = Image.new("RGBA", (fw, fh), OVERLAY_COLOR + (int(255 * OVERLAY_OPACITY),))
-    layer = Image.alpha_composite(layer, ov)
+
     layer.putalpha(Image.fromarray(np.array(wmask), "L"))
     comp = Image.alpha_composite(layer, frame_img)
 
@@ -520,7 +549,11 @@ def render(photo: Image.Image, frame: Frame, sticker_plan: list, stickers: dict)
     shadow.putalpha(sh_alpha)
     final = Image.alpha_composite(shadow, canvas)
     bbox = final.getchannel("A").point(lambda v: 255 if v > 3 else 0).getbbox()
-    return final.crop(bbox) if bbox else final
+    out = final.crop(bbox) if bbox else final
+    if want_meta:
+        ox, oy = (bbox[0] - pad, bbox[1] - pad) if bbox else (-pad, -pad)
+        return out, {"scale": s, "origin": [ox, oy]}
+    return out
 
 
 def encode_variants(img: Image.Image, stem: str, formats: list, out_dir: Path):
@@ -540,6 +573,63 @@ def encode_variants(img: Image.Image, stem: str, formats: list, out_dir: Path):
                 im.save(path, "AVIF", quality=AVIF_QUALITY, speed=AVIF_SPEED)
             result[fmt].append({"src": f"generated/{name}", "w": w, "bytes": path.stat().st_size})
     return result, (W, H)
+
+
+# ----------------------------------------------------------------------------
+# Design mapping (design.json)
+# ----------------------------------------------------------------------------
+
+def load_design() -> dict:
+    """{photo file name: entry}. Missing or invalid file -> {} (everything is then random)."""
+    if not DESIGN.is_file():
+        return {"canvas_width": 1440, "stage_top": 0, "items": {}}
+    try:
+        data = json.loads(DESIGN.read_text("utf-8"))
+        data.setdefault("items", {})
+        return data
+    except (json.JSONDecodeError, OSError) as e:
+        log(f"  ! design.json could not be read ({e}); ignoring it")
+        return {"canvas_width": 1440, "stage_top": 0, "items": {}}
+
+
+def design_frame(entry: dict, frames: dict):
+    prefs = entry.get("frame")
+    prefs = [prefs] if isinstance(prefs, str) else list(prefs or [])
+    for fid in prefs:
+        if fid in frames:
+            if fid != prefs[0]:
+                log(f"    note: frame '{prefs[0]}' is not in frames/ yet, using '{fid}' instead")
+            return frames[fid]
+    return None
+
+
+def design_stickers(entry: dict, frame: Frame, stickers: dict) -> list:
+    """Convert design coordinates (page units) into the sticker plan used by render()."""
+    fx, fy, fw = entry["frame_box"]
+    fh = frame.size[1] * fw / frame.size[0]
+    plan = []
+    for st in entry.get("stickers", []):
+        sid = st["id"]
+        if sid not in stickers:
+            log(f"    note: sticker '{sid}' from design.json not found in stickers/, skipped")
+            continue
+        with Image.open(stickers[sid]["path"]) as im:
+            bb = im.convert("RGBA").getchannel("A").getbbox() or (0, 0) + im.size
+        cx, cy = st["center"]
+        plan.append({"id": sid, "cx": round((cx - fx) / fw, 5), "cy": round((cy - fy) / fh, 5),
+                     "width": round(st["width"] / fw, 5), "rotation": st.get("rotation", 0),
+                     "flip": bool(st.get("flip", False)), "crop": list(bb)})
+    return plan
+
+
+def design_pin(entry: dict, frame: Frame, item: dict):
+    """Where the trimmed image goes on the design artboard (page units)."""
+    if not item.get("origin") or not item.get("master_scale"):
+        return None
+    fx, fy, fw = entry["frame_box"]
+    k = (fw / frame.size[0]) / item["master_scale"]          # page units per master pixel
+    ox, oy = item["origin"]
+    return {"x": round(fx + ox * k, 2), "y": round(fy + oy * k, 2), "w": round(item["width"] * k, 2)}
 
 
 # ----------------------------------------------------------------------------
@@ -593,6 +683,10 @@ def main(argv=None) -> int:
     log("Reading frames and stickers ...")
     frames = load_frames()
     stickers = load_stickers()
+    design = load_design()
+    dmap = design.get("items", {})
+    if dmap:
+        log(f"  design.json: {len(dmap)} photograph(s) are pinned to exact frames/positions")
     if not frames:
         log(f"  ! no usable frames in {FRAMES_DIR.name}/ : photographs will be shown without a frame")
     log(f"  {len(frames)} frames ({', '.join(sorted({f.orientation for f in frames.values()})) or 'none'}), {len(stickers)} stickers")
@@ -614,7 +708,10 @@ def main(argv=None) -> int:
     for p in sorted(IMAGES_DIR.iterdir(), key=natural_key) if IMAGES_DIR.is_dir() else []:
         if p.name.startswith(".") or p.is_dir() or p.name == "captions.json":
             continue
-        if p.suffix.lower() not in SUPPORTED:
+        if p.suffix.lower() in (".heic", ".heif") and not HEIC_OK:
+            skipped.append({"file": p.name, "reason": "HEIC/HEIF photo: install support with  pip install pillow-heif"})
+            continue
+        if p.suffix.lower() not in SUPPORTED and not (HEIC_OK and p.suffix.lower() in (".heic", ".heif")):
             skipped.append({"file": p.name, "reason": f"unsupported format ({p.suffix or 'no extension'})"})
             continue
         sources.append(p)
@@ -622,7 +719,9 @@ def main(argv=None) -> int:
 
     # keep earlier photographs in their saved order, append new ones after them
     order = {name: i for i, name in enumerate(it["source"] for it in prev.get("items", []))}
-    sources.sort(key=lambda p: (order.get(p.name, 10**9), natural_key(p)))
+    dorder = {name: i for i, name in enumerate(dmap)}
+    sources.sort(key=lambda p: (0 if p.name in dorder else 1, dorder.get(p.name, 0),
+                                order.get(p.name, 10**9), natural_key(p)))
 
     # usage counters from saved assignments (so balancing continues across runs)
     frame_use, sticker_use = {}, {}
@@ -635,6 +734,16 @@ def main(argv=None) -> int:
                     if st.get("id") in stickers:
                         sticker_use[st["id"]] = sticker_use.get(st["id"], 0) + 1
 
+    # designed photographs count towards the usage balance, so random picks fill in the gaps
+    for p in sources:
+        d = dmap.get(p.name)
+        if d:
+            f = design_frame(d, frames)
+            if f:
+                frame_use[f.id] = frame_use.get(f.id, 0) + 1
+            for st in d.get("stickers", []):
+                sticker_use[st["id"]] = sticker_use.get(st["id"], 0) + 1
+
     items, seen_hashes = [], {}
     previous_frame, previous_stickers = None, []
     counts = {"new": 0, "updated": 0, "unchanged": 0}
@@ -644,7 +753,8 @@ def main(argv=None) -> int:
     for p in sources:
         try:
             src_hash = file_hash(p)
-            if not args.allow_duplicates and src_hash in seen_hashes:
+            dd = dmap.get(p.name) or {}
+            if not args.allow_duplicates and not dd.get("allow_duplicate") and src_hash in seen_hashes:
                 skipped.append({"file": p.name, "reason": f"identical to {seen_hashes[src_hash]}, skipped"})
                 continue
             photo = load_photo(p)
@@ -660,8 +770,15 @@ def main(argv=None) -> int:
         rng = rng_for(seed, p.name)
 
         # ---- decide frame + stickers (saved, so they stay put) ---------------
-        frame = None
-        if old_item and old_item.get("frame") in frames:
+        dentry = dmap.get(p.name)
+        frame = design_frame(dentry, frames) if dentry else None
+        designed = frame is not None
+        if dentry and not designed:
+            log(f"    note: no frame from design.json is available for {p.name}; choosing one at random")
+            dentry = None
+        if designed:
+            pass
+        elif old_item and old_item.get("frame") in frames:
             cand = frames[old_item["frame"]]
             if abs(math.log(cand.aspect / aspect)) <= MAX_ASPECT_MISMATCH * 1.15 and cand.hash == old_item.get("frame_hash", cand.hash):
                 frame = cand
@@ -671,7 +788,9 @@ def main(argv=None) -> int:
             if frame is not None:
                 frame_use[frame.id] = frame_use.get(frame.id, 0) + 1
         plan = []
-        if frame is not None:
+        if designed:
+            plan = design_stickers(dentry, frame, stickers)
+        elif frame is not None:
             if old_item and not reassigned and old_item.get("stickers") is not None and \
                     all(s["id"] in stickers for s in old_item["stickers"]):
                 plan = old_item["stickers"]
@@ -680,13 +799,13 @@ def main(argv=None) -> int:
                 plan = place_stickers(rng, frame, ids, stickers)
                 for s in plan:
                     sticker_use[s["id"]] = sticker_use.get(s["id"], 0) + 1
-        if frame is not None and abs(math.log(frame.aspect / aspect)) > MAX_ASPECT_MISMATCH:
+        if frame is not None and not designed and abs(math.log(frame.aspect / aspect)) > MAX_ASPECT_MISMATCH:
             log(f"    note: {p.name} has an unusual shape ({pw}x{ph}); it will be cropped a lot to fit {frame.id}. "
                 f"Add a frame with a similar window shape to frames/ for a better result.")
         previous_frame = frame.id if frame else None
         previous_stickers = [s["id"] for s in plan]
 
-        layout = (old_item or {}).get("layout") if not reassigned else None
+        layout = (old_item or {}).get("layout") if (not reassigned or designed) else None
         if not layout:
             lr = rng_for(seed, "layout", p.name)
             layout = {"size": round(lr.random(), 3), "rotation": round(lr.uniform(-2.6, 2.6), 2),
@@ -696,12 +815,17 @@ def main(argv=None) -> int:
         # ---- recipe: when does this image need re-rendering? ---------------
         sticker_sig = [[x["id"], stickers[x["id"]]["hash"], x["cx"], x["cy"], x["width"], x["rotation"], x["flip"]]
                        for x in plan]
-        recipe = sha(json.dumps({"cfg": cfg, "src": src_hash, "frame": frame.hash if frame else None,
-                                 "fmts": formats, "stickers": sticker_sig}, sort_keys=True).encode(), 10)
+        recipe_data = {"cfg": cfg, "src": src_hash, "frame": frame.hash if frame else None,
+                       "fmts": formats, "stickers": sticker_sig}
+        if designed:                                   # (only designed photos: other recipes stay as they were)
+            recipe_data["design_crop"] = dentry.get("crop")
+            recipe_data["design_stickers"] = [x.get("crop") for x in plan]
+        recipe = sha(json.dumps(recipe_data, sort_keys=True).encode(), 10)
         stem = f"{slugify(p.stem)}-{recipe}"
         reuse = (not args.force and old_item and old_item.get("recipe") == recipe and
                  all((ROOT / v["src"]).is_file() for fmt in formats for v in old_item.get("sources", {}).get(fmt, [])) and
-                 set(formats) <= set(old_item.get("sources", {})))
+                 set(formats) <= set(old_item.get("sources", {})) and
+                 (not designed or old_item.get("origin") is not None))
 
         if reuse:
             entry = old_item
@@ -720,8 +844,10 @@ def main(argv=None) -> int:
                     img = photo.copy()
                     img.thumbnail((MAX_MASTER_WIDTH, MAX_MASTER_WIDTH), Image.LANCZOS)
                     img = img.convert("RGBA")
+                    meta = None
                 else:
-                    img = render(photo, frame, plan, stickers)
+                    img, meta = render(photo, frame, plan, stickers, crop=(dentry or {}).get("crop") if designed else None,
+                                       want_meta=True)
                 variants, (mw, mh) = encode_variants(img, stem, formats, OUT_DIR)
             except Exception as e:  # noqa: BLE001
                 skipped.append({"file": p.name, "reason": f"processing failed ({type(e).__name__}: {e})"})
@@ -745,7 +871,19 @@ def main(argv=None) -> int:
                 "title": cap.get("title") or "",
                 "layout": layout,
             }
+            if meta:
+                entry["origin"] = meta["origin"]
+                entry["master_scale"] = round(meta["scale"], 6)
             counts[status] += 1
+        entry["layout"] = dict(entry.get("layout") or layout)
+        entry["layout"].pop("pin", None)
+        entry.pop("design", None)
+        if designed:                                   # exact position from the design layout
+            entry["design"] = {"label": dentry.get("label", ""), "frame_box": dentry["frame_box"]}
+            pin = design_pin(dentry, frame, entry)
+            if pin:
+                entry["layout"]["pin"] = pin
+                entry["layout"]["rotation"] = 0
         if isinstance(captions, dict) and captions.get(p.name):
             entry["alt"] = captions[p.name].get("alt", entry.get("alt"))
             entry["title"] = captions[p.name].get("title", entry.get("title", ""))
@@ -777,9 +915,10 @@ def main(argv=None) -> int:
         "seed": seed,
         "config": cfg,
         "formats": formats,
-        "overlay": {"color": list(OVERLAY_COLOR), "opacity": OVERLAY_OPACITY},
+        # "overlay": {"color": list(OVERLAY_COLOR), "opacity": OVERLAY_OPACITY},
         "frames": {fid: {**f.public(), "uses": used_frames.get(fid, 0)} for fid, f in frames.items()},
         "stickers": {sid: {"file": f"stickers/{s['path'].name}"} for sid, s in stickers.items()},
+        "design": {"canvas_width": design.get("canvas_width", 1440), "stage_top": design.get("stage_top", 0)},
         "items": items,
         "skipped": skipped,
     }
