@@ -77,7 +77,7 @@ The settings are at the top of `process_images.py`: overlay colour/opacity, shad
 * `manifest.json` is served with `no-cache`: browsers re-check it (a tiny 304 response) so new photos appear straight away.
 * The page uses `<picture>` with AVIF/WebP, `srcset` + `sizes` (phones download the small files), `loading="lazy"`, and explicit width/height (no layout shift). The hero art is preloaded.
 * Ready-made header rules are in the site root: `_headers` (Netlify / Cloudflare Pages), `.htaccess` (Apache) and `nginx.example.conf`.
-* For local viewing run `python serve.py` in the site root and open http://localhost:8000/gallery.html. It applies the same caching rules.
+* For local viewing run `python serve.py` in the site root and open http://localhost:8000/archive.html. It applies the same caching rules.
 
 ## Folder map
 
@@ -88,6 +88,6 @@ gallery/
   stickers/       sticker artwork
   generated/      framed, optimised output (do not edit; safe to delete, it is rebuilt)
   manifest.json   what the website reads
-  manifest.js     same data, for opening gallery.html straight from disk
+  manifest.js     same data, for opening archive.html straight from disk
   process_images.py
 ```

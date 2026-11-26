@@ -2,7 +2,7 @@
 """
 Tiny local web server with production-style caching headers.
 
-    python serve.py            ->  http://localhost:8000/gallery.html
+    python serve.py            ->  http://localhost:8000/archive.html
     python serve.py 9000       ->  another port
 
 Why use it: the gallery reads gallery/manifest.json with fetch(), which browsers
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.ThreadingTCPServer(("", port), Handler) as httpd:
-        print(f"Serving {ROOT} at http://localhost:{port}/gallery.html  (Ctrl+C to stop)")
+        print(f"Serving {ROOT} at http://localhost:{port}/archive.html  (Ctrl+C to stop)")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
